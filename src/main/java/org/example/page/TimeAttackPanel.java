@@ -13,6 +13,7 @@ public class TimeAttackPanel extends GamePanel {
     public TimeAttackPanel(){
         super();
         addBoard(415, 10);
+        addBackground();
     }
 
     @Override

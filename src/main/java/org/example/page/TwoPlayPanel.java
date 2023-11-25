@@ -10,6 +10,7 @@ public class TwoPlayPanel extends GamePanel{
     private int player2RemovedLine = 0;
     public TwoPlayPanel(){
         addBoard(100,100);
+        addBackground();
     }
     @Override
     public void addBoard(int posX, int posY) {

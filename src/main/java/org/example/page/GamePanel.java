@@ -1,5 +1,6 @@
 package org.example.page;
 
+import javax.swing.WindowConstants;
 import org.example.score.Score;
 
 import java.awt.Dimension;
@@ -14,13 +15,12 @@ public abstract class GamePanel extends JPanel{
     public JFrame frame;
     private int panelWidth = 1280;
     private int panelHeight = 720;
-    private String msg;
-    private Score score;
 
     protected GamePanel(){
         frame = new JFrame();
         frame.setLayout(null);
         frame.setSize(new Dimension(panelWidth, panelHeight));
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         frame.setLocationRelativeTo(null);
     }
     public abstract void addBoard(int posX, int posY);
@@ -54,7 +54,6 @@ public abstract class GamePanel extends JPanel{
     }
 
     public JFrame getFrame(){
-        addBackground();
         return frame;
     }
 
@@ -63,11 +62,9 @@ public abstract class GamePanel extends JPanel{
         closeFrame.showGameOver();
     }
 
-    public void raiseGameClearFrame() {
+    public void raiseGameClearFrame(String msg, String score) {
         CloseFrame closeFrame = new CloseFrame(getFrame());
-        closeFrame.showGameClear(this.msg, score.getScore());
+        closeFrame.showGameClear(msg, score);
     }
-
-
 
 }

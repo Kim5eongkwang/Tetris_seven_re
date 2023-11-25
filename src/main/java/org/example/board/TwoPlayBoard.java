@@ -10,14 +10,13 @@ import org.example.page.TwoPlayPanel;
 
 public class TwoPlayBoard extends Board {
 
-    private int reduceDelayConst = 3;
+    private int reduceDelayConst = 10;
     private TwoPlayPanel gamepage;
     private transient TwoPlayBoardStatus boardStatus;
 
     public TwoPlayBoard(TwoPlayPanel parent){
         super();
         setGameTimer(new Counter(this));
-        setBlockGenerator(new RandomBlockGenerator());
         boardStatus = new TwoPlayBoardStatus();
         updateSpeedLabel();
         this.gamepage = parent;

@@ -10,8 +10,8 @@ public class SprintPanel extends GamePanel {
 
     public SprintPanel(){
         super();
-        addBoard(415, 10);
-
+        addBoard(415, 110);
+        addBackground();
     }
     @Override
     public void addBoard(int posX, int posY) {

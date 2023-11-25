@@ -12,7 +12,7 @@ import java.awt.*;
 public class TimeAttackBoard extends Board {
 
     private int addTimeLimitConst = 5;
-    private int delayreduceConst = 2;
+    private int delayreduceConst = 7;
     private TimeAttackBoardStatus boardStatus;
     TimeAttackPanel gamePage;
 
@@ -20,7 +20,6 @@ public class TimeAttackBoard extends Board {
     public TimeAttackBoard(TimeAttackPanel parent){
         super();
         setTimer(new ReverseCounter(this));
-        setBlockGenerator(new RandomBlockGenerator());
         setGameTimer(new ReverseCounter(this));
 
         boardStatus = new TimeAttackBoardStatus();

@@ -11,8 +11,10 @@ import javax.swing.JPanel;
 import org.example.BlockBoxData;
 import org.example.BlockBoxPanel;
 import org.example.BlockGenerator;
+import org.example.Counter;
 import org.example.GameController;
 import org.example.GameTimer;
+import org.example.RandomBlockGenerator;
 import org.example.Shape;
 import org.example.Square;
 import org.example.Tetrominoes;
@@ -21,8 +23,8 @@ public abstract class Board extends JPanel implements Square {
 
 	private transient GameTimer gameTimer;
 	private transient BlockBoxPanel blockBoxPanel;
-	private final int BoardWidth = 10;
-	private final int BoardHeight = 22;
+	public final int BoardWidth = 10;
+	public final int BoardHeight = 22;
 	private transient BlockGenerator blockGenerator;
 	private transient GameController controller;
 	private boolean isFallingFinished = false;
@@ -39,12 +41,14 @@ public abstract class Board extends JPanel implements Square {
 		setFocusable(true);
 		curPiece = new Shape();
 		ghostPiece = new Shape();
-		controller = new GameController(400, this);
+		controller = new GameController(600, this);
 		controller.start();
 		blockBoxPanel = new BlockBoxPanel();
 		board = new Tetrominoes[BoardWidth * BoardHeight];
 		addKeyListener(new TAdapter());
 		clearBoard();
+		setBlockGenerator(new RandomBlockGenerator());
+		setGameTimer(new Counter(this));
 	}
 
 	public JPanel getComponent(){
@@ -93,6 +97,10 @@ public abstract class Board extends JPanel implements Square {
 		return board[(y * BoardWidth) + x];
 	}
 
+	public void setShapeAt(int x, int y, Tetrominoes tetrominoes){
+		board[(y * BoardWidth) + x] = tetrominoes;
+	}
+
 	public void start() {
 		if (isPaused)
 			return;
@@ -105,11 +113,12 @@ public abstract class Board extends JPanel implements Square {
 		controller.start();
 	}
 
-	private void pause() {
+	public void pause() {
 		if (!isStarted)
 			return;
 
 		isPaused = !isPaused;
+
 		if (isPaused) {
 			controller.stop();
 		} else {
@@ -171,7 +180,7 @@ public abstract class Board extends JPanel implements Square {
 			droppedCurPiece();
 	}
 
-	private void clearBoard() {
+	public void clearBoard() {
 		for (int i = 0; i < BoardHeight * BoardWidth; ++i)
 			board[i] = Tetrominoes.NoShape;
 	}
@@ -187,7 +196,7 @@ public abstract class Board extends JPanel implements Square {
 	}
 
 	private void initNewPiecePosition(){
-		curPiece.setCurX(BoardWidth / 2 + 1);
+		curPiece.setCurX(BoardWidth / 2);
 		curPiece.setCurY(BoardHeight - 1 + curPiece.minY());
 
 		if (!tryMoveCurPiece(curPiece, curPiece.getCurX(), curPiece.getCurY())) {
@@ -195,7 +204,7 @@ public abstract class Board extends JPanel implements Square {
 		}
 	}
 
-	private void newPiece() {
+	public void newPiece() {
 		Tetrominoes newShape = blockGenerator.generateTetrominoes();
 		curPiece.initShape(newShape);
 		initNewPiecePosition();
@@ -338,7 +347,7 @@ public abstract class Board extends JPanel implements Square {
 	public void drawSquare(Graphics g, int x, int y, Tetrominoes shape) {
 		Color colors[] = { new Color(0, 0, 0), new Color(204, 102, 102), new Color(102, 204, 102),
 				new Color(102, 102, 204), new Color(204, 204, 102), new Color(204, 102, 204), new Color(102, 204, 204),
-				new Color(218, 170, 0) };
+				new Color(218, 170, 0), new Color(59, 59, 59)};
 
 		Color color = colors[shape.ordinal()];
 
@@ -371,6 +380,9 @@ public abstract class Board extends JPanel implements Square {
 	}
 	public void setBlockGenerator(BlockGenerator blockGenerator){
 		this.blockGenerator = blockGenerator;
+	}
+	public BlockGenerator getBlockGenerator(){
+		return  blockGenerator;
 	}
 	public void updateBlockBox(){
 		Tetrominoes next1;
@@ -461,6 +473,9 @@ public abstract class Board extends JPanel implements Square {
 					break;
 				case 'h', 'H':
 					holdPiece();
+					break;
+				case 'p', 'P':
+					pause();
 					break;
 				default:
 					break;

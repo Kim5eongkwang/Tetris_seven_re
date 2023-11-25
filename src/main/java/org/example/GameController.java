@@ -3,11 +3,12 @@ package org.example;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import javax.swing.Timer;
 import org.example.board.Board;
 
 
 public class GameController implements ActionListener{
-    javax.swing.Timer timer;
+    Timer timer;
     Board board;
 
     public GameController(int delay, Board board){
@@ -39,6 +40,10 @@ public class GameController implements ActionListener{
         int delay = timer.getDelay();
         if(delay <= 10) return;
         timer.setDelay(delay - minusConst);
+    }
+
+    public void setDelay(int delay){
+        timer.setDelay(delay);
     }
 
 }
