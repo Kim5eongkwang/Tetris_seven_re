@@ -186,13 +186,15 @@ public abstract class Board extends JPanel implements Square {
 	}
 
 	public void droppedCurPiece() {
-		isFallingFinished = true;
 		for (int i = 0; i < 4; ++i) {
 			int x = curPiece.getCurX() + curPiece.x(i);
 			int y = curPiece.getCurY() - curPiece.y(i);
 			board[(y * BoardWidth) + x] = curPiece.getShape();
 		}
 		removeFullLines();
+
+		if(!isFallingFinished)
+			newPiece();
 	}
 
 	private void initNewPiecePosition(){
@@ -278,7 +280,6 @@ public abstract class Board extends JPanel implements Square {
 				removeLine(i);
 			}
 		}
-
 		if (numFullLines > 0) {
 			numLinesRemoved += numFullLines;
 			curPiece.initShape(Tetrominoes.NoShape);
