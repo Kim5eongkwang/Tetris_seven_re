@@ -20,21 +20,22 @@ public class CloseFrame extends JFrame {
         gameFrame = parent;
     }
 
-    public void showGameClear(String msg, String score){
-        JLabel msgLabel = new JLabel(msg);
-        JLabel scoreLabel = new JLabel(score);
+    public void showGameClear(String msg){
+        JLabel msgLabel = new JLabel(msg,JLabel.CENTER);
         Font font = new Font("Aharon", Font.BOLD, 25);
         msgLabel.setFont(font);
-        scoreLabel.setFont(font);
 
         msgLabel.setBounds(0,0,400,25);
-        scoreLabel.setBounds(10,0,100,100);
         closeButton.setBounds(200,300,200,100);
 
         closeFrame.add(msgLabel);
-        closeFrame.add(scoreLabel);
         closeFrame.add(closeButton);
+
         buttonAction();
+
+        closeFrame.setVisible(true);
+        closeFrame.pack();
+
     }
 
     public void showGameOver(){

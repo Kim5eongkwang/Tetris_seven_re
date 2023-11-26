@@ -3,6 +3,8 @@ package org.example.page;
 import org.example.board.SprintBoard;
 
 import javax.swing.JPanel;
+import org.example.model.KeyInput;
+import org.example.score.SprintScore;
 
 
 public class SprintPanel extends GamePanel {
@@ -10,8 +12,9 @@ public class SprintPanel extends GamePanel {
 
     public SprintPanel(){
         super();
-        addBoard(415, 10);
-
+        addBoard(415, 110);
+        drawHighScore(new SprintScore().getHighScore());
+        addBackground();
     }
     @Override
     public void addBoard(int posX, int posY) {
@@ -20,6 +23,15 @@ public class SprintPanel extends GamePanel {
         boardView.setBounds(posX, posY, 450, 600);
         frame.add(boardView);
         board.start();
+        setAdapter(board);
     }
+
+    @Override
+    public void raiseGameClearFrame() {
+        String score = board.getCurTime();
+        new SprintScore().saveScore(score);
+        setGameClearFrame("Score : " + score);
+    }
+
 
 }

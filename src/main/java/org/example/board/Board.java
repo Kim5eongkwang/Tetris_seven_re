@@ -7,13 +7,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import org.example.BlockBoxData;
 import org.example.BlockBoxPanel;
 import org.example.BlockGenerator;
+import org.example.BlockImg;
+import org.example.Counter;
 import org.example.GameController;
 import org.example.GameTimer;
+import org.example.RandomBlockGenerator;
 import org.example.Shape;
+import org.example.SoundEffect;
 import org.example.Square;
 import org.example.Tetrominoes;
 
@@ -21,8 +29,8 @@ public abstract class Board extends JPanel implements Square {
 
 	private transient GameTimer gameTimer;
 	private transient BlockBoxPanel blockBoxPanel;
-	private final int BoardWidth = 10;
-	private final int BoardHeight = 22;
+	public final int BoardWidth = 10;
+	public final int BoardHeight = 22;
 	private transient BlockGenerator blockGenerator;
 	private transient GameController controller;
 	private boolean isFallingFinished = false;
@@ -39,12 +47,13 @@ public abstract class Board extends JPanel implements Square {
 		setFocusable(true);
 		curPiece = new Shape();
 		ghostPiece = new Shape();
-		controller = new GameController(400, this);
+		controller = new GameController(600, this);
 		controller.start();
 		blockBoxPanel = new BlockBoxPanel();
 		board = new Tetrominoes[BoardWidth * BoardHeight];
-		addKeyListener(new TAdapter());
 		clearBoard();
+		setBlockGenerator(new RandomBlockGenerator());
+		setGameTimer(new Counter(this));
 	}
 
 	public JPanel getComponent(){
@@ -93,6 +102,10 @@ public abstract class Board extends JPanel implements Square {
 		return board[(y * BoardWidth) + x];
 	}
 
+	public void setShapeAt(int x, int y, Tetrominoes tetrominoes){
+		board[(y * BoardWidth) + x] = tetrominoes;
+	}
+
 	public void start() {
 		if (isPaused)
 			return;
@@ -105,11 +118,12 @@ public abstract class Board extends JPanel implements Square {
 		controller.start();
 	}
 
-	private void pause() {
+	public void pause() {
 		if (!isStarted)
 			return;
 
 		isPaused = !isPaused;
+
 		if (isPaused) {
 			controller.stop();
 		} else {
@@ -122,8 +136,12 @@ public abstract class Board extends JPanel implements Square {
 		super.paint(g);
 
 		drawBoard(g);
-		drawPiece(g, curPiece);
-		drawPiece(g, ghostPiece);
+		try {
+			drawCurPiece(g);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		drawGhostPiece(g);
 	}
 
 	private void drawBoard(Graphics g){
@@ -134,12 +152,36 @@ public abstract class Board extends JPanel implements Square {
 			for (int j = 0; j < BoardWidth; ++j) {
 				Tetrominoes shape = shapeAt(j, BoardHeight - i - 1);
 				if (shape != Tetrominoes.NoShape)
-					drawSquare(g, 0 + j * squareWidth(), boardTop + i * squareHeight(), shape);
+					drawSquare(g, j * squareWidth(), boardTop + i * squareHeight(), shape);
+				if(shape == Tetrominoes.NoShape)
+					drawGrid(g,j * squareWidth(),boardTop + i * squareHeight());
 			}
 		}
 	}
 
-	private void drawPiece(Graphics g, Shape piece){
+	public void drawGrid(Graphics g, int x, int y) {
+		Color color = new Color(150, 150, 150);
+
+		g.setColor(color);
+		g.drawRect(x, y, squareWidth(), squareHeight());
+	}
+
+	private void drawCurPiece(Graphics g) throws IOException {
+		Shape piece = this.curPiece;
+		Dimension size = getSize();
+		int boardTop = (int) size.getHeight() - BoardHeight * squareHeight();
+		if (curPiece.getShape() != Tetrominoes.NoShape) {
+			for (int i = 0; i < 4; ++i) {
+				int x = piece.getCurX() + piece.x(i);
+				int y = piece.getCurY() - piece.y(i);
+				drawImgSquare(g, 0 + x * squareWidth(), boardTop + (BoardHeight - y - 1) * squareHeight(),
+						piece.getShape());
+			}
+		}
+	}
+
+	private void drawGhostPiece(Graphics g){
+		Shape piece = this.ghostPiece;
 		Dimension size = getSize();
 		int boardTop = (int) size.getHeight() - BoardHeight * squareHeight();
 		if (curPiece.getShape() != Tetrominoes.NoShape) {
@@ -152,12 +194,12 @@ public abstract class Board extends JPanel implements Square {
 		}
 	}
 
-	private void dropDownCurPiece() {
+	public void dropDownCurPiece() {
 		dropDownPiece(curPiece);
 		droppedCurPiece();
 	}
 
-	private void dropDownPiece(Shape piece){
+	public void dropDownPiece(Shape piece){
 		int newY = piece.getCurY();
 		while (newY > 0) {
 			if (!tryMovePiece(piece, piece.getCurX(), newY - 1))
@@ -166,28 +208,30 @@ public abstract class Board extends JPanel implements Square {
 		}
 	}
 
-	private void oneLineDownCurPiece() {
+	public void oneLineDownCurPiece() {
 		if (!tryMoveCurPiece(curPiece, curPiece.getCurX(), curPiece.getCurY() - 1))
 			droppedCurPiece();
 	}
 
-	private void clearBoard() {
+	public void clearBoard() {
 		for (int i = 0; i < BoardHeight * BoardWidth; ++i)
 			board[i] = Tetrominoes.NoShape;
 	}
 
 	public void droppedCurPiece() {
-		isFallingFinished = true;
 		for (int i = 0; i < 4; ++i) {
 			int x = curPiece.getCurX() + curPiece.x(i);
 			int y = curPiece.getCurY() - curPiece.y(i);
 			board[(y * BoardWidth) + x] = curPiece.getShape();
 		}
 		removeFullLines();
+
+		if(!isFallingFinished)
+			newPiece();
 	}
 
 	private void initNewPiecePosition(){
-		curPiece.setCurX(BoardWidth / 2 + 1);
+		curPiece.setCurX(BoardWidth / 2);
 		curPiece.setCurY(BoardHeight - 1 + curPiece.minY());
 
 		if (!tryMoveCurPiece(curPiece, curPiece.getCurX(), curPiece.getCurY())) {
@@ -195,7 +239,7 @@ public abstract class Board extends JPanel implements Square {
 		}
 	}
 
-	private void newPiece() {
+	public void newPiece() {
 		Tetrominoes newShape = blockGenerator.generateTetrominoes();
 		curPiece.initShape(newShape);
 		initNewPiecePosition();
@@ -269,8 +313,8 @@ public abstract class Board extends JPanel implements Square {
 				removeLine(i);
 			}
 		}
-
 		if (numFullLines > 0) {
+			SoundEffect.playSound();
 			numLinesRemoved += numFullLines;
 			curPiece.initShape(Tetrominoes.NoShape);
 			repaint();
@@ -334,11 +378,16 @@ public abstract class Board extends JPanel implements Square {
 		}
 		System.out.println(curPiece.getRotateIndex());
 	}
+
+	public void drawImgSquare(Graphics g, int x, int y, Tetrominoes shape) throws IOException {
+		BufferedImage bufferedImage = BlockImg.getImage(shape);
+		g.drawImage(bufferedImage, x, y, squareWidth(), squareHeight(), null);
+	}
 	@Override
 	public void drawSquare(Graphics g, int x, int y, Tetrominoes shape) {
 		Color colors[] = { new Color(0, 0, 0), new Color(204, 102, 102), new Color(102, 204, 102),
 				new Color(102, 102, 204), new Color(204, 204, 102), new Color(204, 102, 204), new Color(102, 204, 204),
-				new Color(218, 170, 0) };
+				new Color(218, 170, 0), new Color(59, 59, 59)};
 
 		Color color = colors[shape.ordinal()];
 
@@ -366,11 +415,17 @@ public abstract class Board extends JPanel implements Square {
 		gameTimer.pause();
 		isStarted = false;
 	}
+	public boolean getIsStarted(){
+		return isStarted;
+	}
 	public void setTimer(GameTimer gameTimer){
 		this.gameTimer = gameTimer;
 	}
 	public void setBlockGenerator(BlockGenerator blockGenerator){
 		this.blockGenerator = blockGenerator;
+	}
+	public BlockGenerator getBlockGenerator(){
+		return  blockGenerator;
 	}
 	public void updateBlockBox(){
 		Tetrominoes next1;
@@ -423,48 +478,16 @@ public abstract class Board extends JPanel implements Square {
 
 	public abstract void updateTimerLabel(String time);
 
-	class TAdapter extends KeyAdapter {
-		public void keyPressed(KeyEvent e) {
-
-			if (!isStarted || curPiece.getShape() == Tetrominoes.NoShape) {
-				return;
-			}
-
-			int keycode = e.getKeyCode();
-
-			if (keycode == 'p' || keycode == 'P') {
-				pause();
-				return;
-			}
-
-			if (isPaused)
-				return;
-
-			switch (keycode) {
-				case KeyEvent.VK_LEFT:
-					tryMoveCurPiece(curPiece, curPiece.getCurX() - 1, curPiece.getCurY());
-					break;
-				case KeyEvent.VK_RIGHT:
-					tryMoveCurPiece(curPiece, curPiece.getCurX() + 1, curPiece.getCurY());
-					break;
-				case KeyEvent.VK_DOWN:
-					rotateRightCurPiece();
-					break;
-				case KeyEvent.VK_UP:
-					rotateLeftCurPiece();
-					break;
-				case KeyEvent.VK_SPACE:
-					dropDownCurPiece();
-					break;
-				case 'd', 'D':
-					oneLineDownCurPiece();
-					break;
-				case 'h', 'H':
-					holdPiece();
-					break;
-				default:
-					break;
-			}
-		}
+	public boolean getIsPaused() {
+		return isPaused;
 	}
+
+	public void moveLeft() {
+		tryMoveCurPiece(curPiece, curPiece.getCurX() - 1, curPiece.getCurY());
+	}
+
+	public void moveRight() {
+		tryMoveCurPiece(curPiece, curPiece.getCurX() + 1, curPiece.getCurY());
+	}
+
 }

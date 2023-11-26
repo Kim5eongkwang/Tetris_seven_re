@@ -16,8 +16,6 @@ public class SprintBoard extends Board {
     private transient SprintBoardStatus boardStatus;
     public SprintBoard(SprintPanel parent){
         super();
-        setGameTimer(new Counter(this));
-        setBlockGenerator(new RandomBlockGenerator());
         boardStatus = new SprintBoardStatus();
         gamePage = parent;
     }
@@ -29,9 +27,9 @@ public class SprintBoard extends Board {
         JPanel status = boardStatus.getStatus();
 
         ret.setLayout(null);
-        ret.setSize(450, 600);
-        superBoard.setBounds(0,100,350,500);
-        status.setBounds(350,420,60,80);
+        ret.setSize(450, 500);
+        superBoard.setBounds(0,0,350,500);
+        status.setBounds(350,320,60,80);
         ret.add(superBoard);
         ret.add(status);
         ret.setBackground(new Color(0,0,0,0));
@@ -53,6 +51,11 @@ public class SprintBoard extends Board {
     @Override
     public void gameClear() {
         super.gameClear();
+        gamePage.raiseGameClearFrame();
+    }
+
+    public String getCurTime(){
+        return getTimer().getCurTime();
     }
 
 
@@ -77,7 +80,7 @@ public class SprintBoard extends Board {
 
     public void updateRemovedLines() {
         int removedLines = getNumLinesRemoved();
-        String str = String.format("%d/40", removedLines);
+        String str = String.format("%d/"+clearPoint, removedLines);
         boardStatus.updateRemovedLineLabel(str);
     }
 }

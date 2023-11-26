@@ -87,6 +87,11 @@ public class RandomBlockGenerator implements BlockGenerator{
         return blockQueue[index];
     }
 
+    @Override
+    public void resetBlockGenerator() {
+        //사용 예정 없음
+    }
+
     private Tetrominoes[] getHalfQueue(){
         Tetrominoes[] array = new Tetrominoes[tetrominoesSize];
         List<Integer> numlist= new ArrayList<>();

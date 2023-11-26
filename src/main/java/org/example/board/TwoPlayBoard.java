@@ -1,6 +1,7 @@
 package org.example.board;
 
 import java.awt.Color;
+import java.util.Random;
 import javax.swing.JPanel;
 import org.example.Counter;
 import org.example.GameController;
@@ -10,20 +11,28 @@ import org.example.page.TwoPlayPanel;
 
 public class TwoPlayBoard extends Board {
 
-    private int reduceDelayConst = 3;
+    private int reduceDelayConst = 10;
     private TwoPlayPanel gamepage;
     private transient TwoPlayBoardStatus boardStatus;
 
     public TwoPlayBoard(TwoPlayPanel parent){
         super();
         setGameTimer(new Counter(this));
-        setBlockGenerator(new RandomBlockGenerator());
         boardStatus = new TwoPlayBoardStatus();
         updateSpeedLabel();
         this.gamepage = parent;
+        getController().setDelay(600);
     }
 
-
+    public TwoPlayBoard(TwoPlayPanel parent, Random rand){
+        super();
+        setGameTimer(new Counter(this));
+        boardStatus = new TwoPlayBoardStatus();
+        setBlockGenerator(new RandomBlockGenerator(rand));
+        updateSpeedLabel();
+        this.gamepage = parent;
+        getController().setDelay(600);
+    }
 
     @Override
     public JPanel getComponent() {
@@ -39,12 +48,7 @@ public class TwoPlayBoard extends Board {
     @Override
     public void gameOver() {
         super.gameOver();
-        gamepage.raiseGameOverFrame();
-    }
-
-    @Override
-    public void gameClear() {
-        super.gameClear();
+        gamepage.raiseGameClearFrame();
     }
 
     public void updateTimerLabel(String time) {
