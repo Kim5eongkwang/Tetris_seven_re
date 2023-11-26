@@ -12,6 +12,7 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
+import org.example.score.TimeAttackScore;
 
 
 public abstract class GamePanel extends JPanel{

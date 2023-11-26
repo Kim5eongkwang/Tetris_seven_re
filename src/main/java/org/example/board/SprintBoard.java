@@ -80,7 +80,7 @@ public class SprintBoard extends Board {
 
     public void updateRemovedLines() {
         int removedLines = getNumLinesRemoved();
-        String str = String.format("%d/40", removedLines);
+        String str = String.format("%d/"+clearPoint, removedLines);
         boardStatus.updateRemovedLineLabel(str);
     }
 }

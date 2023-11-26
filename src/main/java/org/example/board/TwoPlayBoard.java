@@ -1,9 +1,11 @@
 package org.example.board;
 
 import java.awt.Color;
+import java.util.Random;
 import javax.swing.JPanel;
 import org.example.Counter;
 import org.example.GameController;
+import org.example.RandomBlockGenerator;
 import org.example.page.TwoPlayPanel;
 
 
@@ -19,7 +21,17 @@ public class TwoPlayBoard extends Board {
         boardStatus = new TwoPlayBoardStatus();
         updateSpeedLabel();
         this.gamepage = parent;
-        getController().setDelay(100);
+        getController().setDelay(600);
+    }
+
+    public TwoPlayBoard(TwoPlayPanel parent, Random rand){
+        super();
+        setGameTimer(new Counter(this));
+        boardStatus = new TwoPlayBoardStatus();
+        setBlockGenerator(new RandomBlockGenerator(rand));
+        updateSpeedLabel();
+        this.gamepage = parent;
+        getController().setDelay(600);
     }
 
     @Override

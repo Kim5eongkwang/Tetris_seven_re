@@ -74,13 +74,13 @@ public class TimeAttackBoard extends Board {
 
     @Override
     public void gameOver() {
-        super.gameOver();
-        gamePage.raiseGameOverFrame();
+        gameClear();
     }
 
     @Override
     public void gameClear() {
         super.gameClear();
+        gamePage.raiseGameClearFrame();
     }
 
     @Override

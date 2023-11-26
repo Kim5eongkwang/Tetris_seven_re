@@ -4,7 +4,7 @@ public class TimeAttackScore extends Score{
     private static final String scoreName = "timeAttackHighScore";
     @Override
     public String getHighScore() {
-        String score = BringScore(scoreName);
+        String score = bringScore(scoreName);
         return score;
     }
 

@@ -27,6 +27,7 @@ public class SprintPanel extends GamePanel {
     @Override
     public void raiseGameClearFrame() {
         String score = board.getCurTime();
+        new SprintScore().saveScore(score);
         setGameClearFrame("Score : " + score);
     }
 

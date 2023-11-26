@@ -11,7 +11,7 @@ import org.json.simple.parser.ParseException;
 public abstract class Score
 {
     String filePath = "src/main/java/org/example/data/highScore.json";
-    public String BringScore(String scoreName){
+    public String bringScore(String scoreName){
         String highScoreData;
         try {
             Reader reader= new FileReader(filePath);
