@@ -136,7 +136,7 @@ public class MutliPlayPage extends JPanel{
                     } catch (InterruptedException ex) {
                         throw new RuntimeException(ex);
                     }
-                    TwoPlayPanel multiTwoPlayPage=new TwoPlayPanel(p1Key,p2Key);
+                    TwoPlayPanel multiTwoPlayPage=new TwoPlayPanel();
                     multiTwoPlayPage.setVisible(true);
                     System.out.println("match success");
                 }
@@ -149,7 +149,7 @@ public class MutliPlayPage extends JPanel{
         localPlayBt.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                TwoPlayPanel localTwoPlayPage = new TwoPlayPanel(p1Key, p2Key);
+                TwoPlayPanel localTwoPlayPage = new TwoPlayPanel();
                 localTwoPlayPage.getFrame().setVisible(true);
             }
         });

@@ -10,8 +10,8 @@ public class TwoPlayPanel extends GamePanel{
     private TwoPlayBoard player2;
     private int player1RemovedLine = 0;
     private int player2RemovedLine = 0;
-    public TwoPlayPanel(KeyInput p1key, KeyInput p2key){
-        super(p1key);
+    public TwoPlayPanel(){
+        super();
         addBoard(100,100);
         addBackground();
     }
@@ -21,6 +21,7 @@ public class TwoPlayPanel extends GamePanel{
         player1.setPlayerName("Player 1");
         setPlayer2Board(posX+700, posY);
         player2.setPlayerName("Player 2");
+        setAdapter(player1,player2);
     }
 
     private void setPlayer1Board(int posX, int posY){

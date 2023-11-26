@@ -16,6 +16,7 @@ import org.example.GameController;
 import org.example.GameTimer;
 import org.example.RandomBlockGenerator;
 import org.example.Shape;
+import org.example.SoundEffect;
 import org.example.Square;
 import org.example.Tetrominoes;
 
@@ -45,7 +46,7 @@ public abstract class Board extends JPanel implements Square {
 		controller.start();
 		blockBoxPanel = new BlockBoxPanel();
 		board = new Tetrominoes[BoardWidth * BoardHeight];
-		addKeyListener(new TAdapter());
+		//addKeyListener(new TAdapter());
 		clearBoard();
 		setBlockGenerator(new RandomBlockGenerator());
 		setGameTimer(new Counter(this));
@@ -161,12 +162,12 @@ public abstract class Board extends JPanel implements Square {
 		}
 	}
 
-	private void dropDownCurPiece() {
+	public void dropDownCurPiece() {
 		dropDownPiece(curPiece);
 		droppedCurPiece();
 	}
 
-	private void dropDownPiece(Shape piece){
+	public void dropDownPiece(Shape piece){
 		int newY = piece.getCurY();
 		while (newY > 0) {
 			if (!tryMovePiece(piece, piece.getCurX(), newY - 1))
@@ -281,6 +282,7 @@ public abstract class Board extends JPanel implements Square {
 			}
 		}
 		if (numFullLines > 0) {
+			SoundEffect.playSound(false);
 			numLinesRemoved += numFullLines;
 			curPiece.initShape(Tetrominoes.NoShape);
 			repaint();
@@ -450,7 +452,7 @@ public abstract class Board extends JPanel implements Square {
 	public void moveRight() {
 		tryMoveCurPiece(curPiece, curPiece.getCurX() + 1, curPiece.getCurY());
 	}
-
+/*
 	class TAdapter extends KeyAdapter {
 		public void keyPressed(KeyEvent e) {
 
@@ -498,4 +500,6 @@ public abstract class Board extends JPanel implements Square {
 			}
 		}
 	}
+
+ */
 }

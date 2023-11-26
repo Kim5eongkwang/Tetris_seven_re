@@ -13,8 +13,8 @@ public class TimeAttackPanel extends GamePanel {
 
 
 
-    public TimeAttackPanel(KeyInput keyInput){
-        super(keyInput);
+    public TimeAttackPanel(){
+        super();
         addBoard(415, 10);
         drawHighScore(new TimeAttackScore().getHighScore());
         addBackground();
@@ -27,6 +27,7 @@ public class TimeAttackPanel extends GamePanel {
         JPanel boardView = board.getComponent();
         frame.add(boardView);
         boardView.setBounds(posX, posY, 550, 600);
+        setAdapter(board);
         board.start();
     }
 

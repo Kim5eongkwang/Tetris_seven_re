@@ -33,7 +33,7 @@ public class KeyInputController {
             } else if (keycode == input.getRotateRight()) {
                 controller.rotateRightCurPiece();
             } else if (keycode == input.getDropDown()) {
-                controller.droppedCurPiece();
+                controller.dropDownCurPiece();
             }else if (keycode==input.getOneLineDown()){
                 controller.oneLineDownCurPiece();
             }

@@ -17,8 +17,8 @@ public class TutorialPanel extends GamePanel{
     private JButton resetButton;
     private JButton skipButton;
 
-    public TutorialPanel(KeyInput keyInput){
-        super(keyInput);
+    public TutorialPanel(){
+        super();
         addBoard(415,110);
         setTutorialStepLabel();
         setSRSInfoIcon();
@@ -31,6 +31,7 @@ public class TutorialPanel extends GamePanel{
         JPanel boardView = board.getComponent();
         boardView.setBounds(posX, posY, 350, 500);
         frame.add(boardView);
+        setAdapter(board);
         board.start();
     }
 

@@ -46,6 +46,7 @@ public class MainPage extends JFrame {
         setTitle("Tetris_seven");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setVisible(true);
+        setLocationRelativeTo(null);
 
         sound = new BackgroundMusic();
         sound.mainManuPlay();

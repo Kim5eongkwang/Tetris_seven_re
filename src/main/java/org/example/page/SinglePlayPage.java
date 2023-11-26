@@ -27,7 +27,6 @@ public class SinglePlayPage extends JPanel {
     @Getter
     JButton sprintBt, tutorialBt, timeAttackBt, undoBt;
     private Random rand;
-    KeyInput p1Key = new KeyInput("src/main/java/org/example/data/player1key.json");   //임시
 
     public SinglePlayPage(MainPage parent){
         this.mainPage = parent;
@@ -99,22 +98,21 @@ public class SinglePlayPage extends JPanel {
         tutorialBt.addActionListener(new ActionListener() { //튜토리얼 버튼을 누를 때 발생하는 이벤트
             @Override
             public void actionPerformed(ActionEvent e) {
-                TutorialPanel tutorialPage = new TutorialPanel(p1Key);
-
-                tutorialPage.setVisible(true);
+                TutorialPanel tutorialPage = new TutorialPanel();
+                tutorialPage.getFrame().setVisible(true);
             }
         });
         sprintBt.addActionListener(new ActionListener() {   //스프린트 버튼을 누를 때 발생하는 이벤트
             @Override
             public void actionPerformed(ActionEvent e) {
-                SprintPanel sprintPage = new SprintPanel(p1Key);
+                SprintPanel sprintPage = new SprintPanel();
                 sprintPage.getFrame().setVisible(true);
             }
         });
         timeAttackBt.addActionListener(new ActionListener() {   //타임어택 버튼을 누를 때 발생하는 이벤트
             @Override
             public void actionPerformed(ActionEvent e) {
-                TimeAttackPanel timeAttackPage = new TimeAttackPanel(p1Key);
+                TimeAttackPanel timeAttackPage = new TimeAttackPanel();
                 timeAttackPage.getFrame().setVisible(true);
             }
         });

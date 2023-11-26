@@ -8,7 +8,6 @@ import org.example.AdapterController;
 import org.example.KeyInputController;
 import org.example.board.Board;
 import org.example.model.KeyInput;
-import org.example.score.Score;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -16,18 +15,17 @@ import java.awt.Image;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-import org.example.score.TimeAttackScore;
 
 
 public abstract class GamePanel extends JPanel{
     public JFrame frame;
     private int panelWidth = 1280;
     private int panelHeight = 720;
-    KeyInput keyInput;
+    private KeyInput p1key = new KeyInput("src/main/java/org/example/data/player1key.json");
+    private KeyInput p2key = new KeyInput("src/main/java/org/example/data/player2key.json");
 
-    protected GamePanel(KeyInput keyInput){
+    protected GamePanel(){
         frame = new JFrame();
-        this.keyInput = keyInput;
         frame.setLayout(null);
         frame.setSize(new Dimension(panelWidth, panelHeight));
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
@@ -89,7 +87,16 @@ public abstract class GamePanel extends JPanel{
 
     public void setAdapter(Board board){
         AdapterController adapterController = new AdapterController();
-        adapterController.addList(new KeyInputController(keyInput,board));
+        frame.setFocusable(true);
+        frame.addKeyListener(adapterController);
+        adapterController.addList(new KeyInputController(this.p1key,board));
+    }
+    public void setAdapter(Board p1Board, Board p2Board){
+        AdapterController adapterController = new AdapterController();
+        setFocusable(true);
+        addKeyListener(adapterController);
+        adapterController.addList(new KeyInputController(this.p1key, p1Board));
+        adapterController.addList(new KeyInputController(this.p2key, p2Board));
     }
 
 }

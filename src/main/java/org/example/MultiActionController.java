@@ -33,7 +33,7 @@ public class MultiActionController {
             } else if (message.equals("rotateRight")) {
                 controller.rotateRightCurPiece();
             } else if (message.equals("dropDown")) {
-                controller.droppedCurPiece();
+                controller.dropDownCurPiece();
             } else if (message.equals("oneLineDown")) {
                 controller.oneLineDownCurPiece();
             }

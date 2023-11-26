@@ -10,8 +10,8 @@ import org.example.score.SprintScore;
 public class SprintPanel extends GamePanel {
     private SprintBoard board;
 
-    public SprintPanel(KeyInput keyInput){
-        super(keyInput);
+    public SprintPanel(){
+        super();
         addBoard(415, 110);
         drawHighScore(new SprintScore().getHighScore());
         addBackground();
@@ -23,6 +23,7 @@ public class SprintPanel extends GamePanel {
         boardView.setBounds(posX, posY, 450, 600);
         frame.add(boardView);
         board.start();
+        setAdapter(board);
     }
 
     @Override
