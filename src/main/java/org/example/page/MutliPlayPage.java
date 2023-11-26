@@ -26,8 +26,8 @@ public class MutliPlayPage extends JPanel{
     private final MainPage mainPage;
     static ImageIcon localPlayImg, onlineImg, undoImg,rankingImg;
     JButton localPlayBt, onlineBt, undoBt,rankingBt;
-    KeyInput p1Key = new KeyInput("src/main/java/kr/ac/jbnu/se/tetris/data/player1key.json");
-    KeyInput p2Key = new KeyInput("src/main/java/kr/ac/jbnu/se/tetris/data/player2key.json");
+    KeyInput p1Key = new KeyInput("src/main/java/org/example/data/player1key.json");
+    KeyInput p2Key = new KeyInput("src/main/java/org/example/data/player2key.json");
     Random p1Rand;
     Random p2Rand;
 
@@ -66,10 +66,12 @@ public class MutliPlayPage extends JPanel{
      * 버튼 모양과 위치를 설정하고 buttonPanel에 추가하는 메서드
      */
     public void buttonInit(){
-        localPlayImg = new ImageIcon("source/image/button/localplay.png");
-        onlineImg = new ImageIcon("source/image/button/onlineplay.png");
-        rankingImg= new ImageIcon("source/image/button/rankingImg.png");
-        undoImg = new ImageIcon("source/image/button/undo.png");
+        String filePath = "source/button";
+
+        localPlayImg = new ImageIcon(filePath+"/localplay.png");
+        onlineImg = new ImageIcon(filePath+"/onlineplay.png");
+        rankingImg= new ImageIcon(filePath+"/rankingImg.png");
+        undoImg = new ImageIcon(filePath+"/undo.png");
 
         localPlayBt = new JButton(localPlayImg);
         onlineBt = new JButton(onlineImg);
@@ -134,7 +136,7 @@ public class MutliPlayPage extends JPanel{
                     } catch (InterruptedException ex) {
                         throw new RuntimeException(ex);
                     }
-                    MultiTwoPlayPage multiTwoPlayPage=new MultiTwoPlayPage(p1Key,p2Key);
+                    TwoPlayPanel multiTwoPlayPage=new TwoPlayPanel(p1Key,p2Key);
                     multiTwoPlayPage.setVisible(true);
                     System.out.println("match success");
                 }
@@ -147,8 +149,8 @@ public class MutliPlayPage extends JPanel{
         localPlayBt.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                LocalTwoPlayPage localTwoPlayPage = new LocalTwoPlayPage(new Member(), p1Key, p1Rand, new Member(), p2Key, p2Rand);
-                localTwoPlayPage.setVisible(true);
+                TwoPlayPanel localTwoPlayPage = new TwoPlayPanel(p1Key, p2Key);
+                localTwoPlayPage.getFrame().setVisible(true);
             }
         });
 

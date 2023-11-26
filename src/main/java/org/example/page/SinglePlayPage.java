@@ -27,7 +27,7 @@ public class SinglePlayPage extends JPanel {
     @Getter
     JButton sprintBt, tutorialBt, timeAttackBt, undoBt;
     private Random rand;
-    KeyInput p1Key = new KeyInput("src/main/java/kr/ac/jbnu/se/tetris/data/player1key.json");   //임시
+    KeyInput p1Key = new KeyInput("src/main/java/org/example/data/player1key.json");   //임시
 
     public SinglePlayPage(MainPage parent){
         this.mainPage = parent;
@@ -60,10 +60,13 @@ public class SinglePlayPage extends JPanel {
      * 버튼 모양과 위치를 설정하고 buttonPanel에 추가하는 메서드
      */
     public void buttonInit(){
-        sprintImg = new ImageIcon("source/image/button/sprint.png");    //이미지 아이콘의 위치
-        tutorialImg = new ImageIcon("source/image/button/tutorial.png");
-        timeAttackImg = new ImageIcon("source/image/button/timeattack.png");
-        undoImg = new ImageIcon("source/image/button/undo.png");
+
+        String filePath = "source/button";
+
+        sprintImg = new ImageIcon(filePath+"/sprint.png");    //이미지 아이콘의 위치
+        tutorialImg = new ImageIcon(filePath+"/tutorial.png");
+        timeAttackImg = new ImageIcon(filePath+"/timeattack.png");
+        undoImg = new ImageIcon(filePath+"/undo.png");
 
         sprintBt = new JButton(sprintImg);  //스프린트
         tutorialBt = new JButton(tutorialImg);  //튜토리얼
@@ -96,22 +99,23 @@ public class SinglePlayPage extends JPanel {
         tutorialBt.addActionListener(new ActionListener() { //튜토리얼 버튼을 누를 때 발생하는 이벤트
             @Override
             public void actionPerformed(ActionEvent e) {
-                TutorialPage tutorialPage = new TutorialPage(new Member(), p1Key);
+                TutorialPanel tutorialPage = new TutorialPanel(p1Key);
+
                 tutorialPage.setVisible(true);
             }
         });
         sprintBt.addActionListener(new ActionListener() {   //스프린트 버튼을 누를 때 발생하는 이벤트
             @Override
             public void actionPerformed(ActionEvent e) {
-                SprintPage sprintPage = new SprintPage(new Member(), p1Key, rand);
-                sprintPage.setVisible(true);
+                SprintPanel sprintPage = new SprintPanel(p1Key);
+                sprintPage.getFrame().setVisible(true);
             }
         });
         timeAttackBt.addActionListener(new ActionListener() {   //타임어택 버튼을 누를 때 발생하는 이벤트
             @Override
             public void actionPerformed(ActionEvent e) {
-                TimeAttackPage timeAttackPage = new TimeAttackPage(new Member(), p1Key, rand);
-                timeAttackPage.setVisible(true);
+                TimeAttackPanel timeAttackPage = new TimeAttackPanel(p1Key);
+                timeAttackPage.getFrame().setVisible(true);
             }
         });
     }

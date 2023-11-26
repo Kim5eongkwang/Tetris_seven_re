@@ -175,7 +175,7 @@ public abstract class Board extends JPanel implements Square {
 		}
 	}
 
-	private void oneLineDownCurPiece() {
+	public void oneLineDownCurPiece() {
 		if (!tryMoveCurPiece(curPiece, curPiece.getCurX(), curPiece.getCurY() - 1))
 			droppedCurPiece();
 	}
@@ -438,6 +438,18 @@ public abstract class Board extends JPanel implements Square {
 	}
 
 	public abstract void updateTimerLabel(String time);
+
+	public boolean getIsPaused() {
+		return isPaused;
+	}
+
+	public void moveLeft() {
+		tryMoveCurPiece(curPiece, curPiece.getCurX() - 1, curPiece.getCurY());
+	}
+
+	public void moveRight() {
+		tryMoveCurPiece(curPiece, curPiece.getCurX() + 1, curPiece.getCurY());
+	}
 
 	class TAdapter extends KeyAdapter {
 		public void keyPressed(KeyEvent e) {

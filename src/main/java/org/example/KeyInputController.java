@@ -1,42 +1,41 @@
 package org.example;
 
 import java.util.logging.Logger;
+import org.example.board.Board;
 import org.example.model.KeyInput;
 
 
 public class KeyInputController {
     Logger logger= Logger.getLogger(KeyInputController.class.getName());
     private final KeyInput input;
-    private final BoardController controller;
-    private final PieceController pieceController;
+    private final Board controller;
 
-    public KeyInputController(KeyInput input, BoardController controller) {
+
+    public KeyInputController(KeyInput input, Board controller) {
         logger.info("keyInputController start");
         this.input = input;
         this.controller=controller;
-        this.pieceController = controller.getPieceController();
-
     }
 
     public void action(int keycode) throws CloneNotSupportedException {
         logger.info("input : " + keycode);
         //if(keycode == input.getPause())
             //controller.pause();
-        if (!controller.isPaused()) {
+        if (!controller.getIsPaused()) {
             if (keycode == input.getMoveLeft()) {
-                pieceController.moveLeft();
+                controller.moveLeft();
             } else if (keycode == input.getMoveRight()) {
-                pieceController.moveRight();
+                controller.moveRight();
             } else if (keycode == input.getBlockHold()) {
-                pieceController.holdingPiece();
+                controller.holdPiece();
             } else if (keycode == input.getRotateLeft()) {
-                pieceController.rotateLeft();
+                controller.rotateLeftCurPiece();
             } else if (keycode == input.getRotateRight()) {
-                pieceController.rotateRight();
+                controller.rotateRightCurPiece();
             } else if (keycode == input.getDropDown()) {
-                pieceController.dropDown();
+                controller.droppedCurPiece();
             }else if (keycode==input.getOneLineDown()){
-                pieceController.oneLineDown();
+                controller.oneLineDownCurPiece();
             }
         }
     }

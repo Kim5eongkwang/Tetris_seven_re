@@ -3,14 +3,15 @@ package org.example.page;
 import org.example.board.SprintBoard;
 
 import javax.swing.JPanel;
+import org.example.model.KeyInput;
 import org.example.score.SprintScore;
 
 
 public class SprintPanel extends GamePanel {
     private SprintBoard board;
 
-    public SprintPanel(){
-        super();
+    public SprintPanel(KeyInput keyInput){
+        super(keyInput);
         addBoard(415, 110);
         drawHighScore(new SprintScore().getHighScore());
         addBackground();

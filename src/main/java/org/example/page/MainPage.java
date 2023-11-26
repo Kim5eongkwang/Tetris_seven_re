@@ -2,6 +2,8 @@ package org.example.page;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Image;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.IOException;
@@ -15,15 +17,14 @@ import org.example.BackgroundMusic;
 public class MainPage extends JFrame {
     static private final int MAINPAGE_SIZE_WIDTH = 1280;
     static private final int MAINPAGE_SIZE_HEIGHT = 720;
-    BackgroundMusic sound;
-    JPanel backgroundPanel;
+    static private transient BackgroundMusic sound;
 
-    static JPanel mainPagePanel;
+    private JPanel mainPagePanel;
 
-    JPanel singlePagePanel;
-    JButton multiPlayBt, closeBt, singlePlayBt;
+    private JPanel singlePagePanel;
+    private JButton multiPlayBt, closeBt, singlePlayBt;
 
-    JPanel multiPlayPagePanel; //뒷 배경을 그린 패널, 메인 패널, 싱글 플레이 패널, 멀티플레이 패널
+    private JPanel multiPlayPagePanel; //뒷 배경을 그린 패널, 메인 패널, 싱글 플레이 패널, 멀티플레이 패널
 
     public MainPage() throws IOException {
 
@@ -31,15 +32,16 @@ public class MainPage extends JFrame {
         setSize(new Dimension(MAINPAGE_SIZE_WIDTH, MAINPAGE_SIZE_HEIGHT));
         setLayout(null);
         singlePagePanel = new SinglePlayPage(this);
+        singlePagePanel.setVisible(false);
         multiPlayPagePanel = new MutliPlayPage(this);
+        multiPlayPagePanel.setVisible(false);
         add(singlePagePanel);
         add(multiPlayPagePanel);
 
         mainPagePanelInit();
         buttonInit();
+        addBackground();
 
-        add(backgroundPanel);
-        backgroundPanel.setSize(MAINPAGE_SIZE_WIDTH,MAINPAGE_SIZE_HEIGHT);
 
         setTitle("Tetris_seven");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -47,6 +49,7 @@ public class MainPage extends JFrame {
 
         sound = new BackgroundMusic();
         sound.mainManuPlay();
+
     }
 
     public JPanel getMainPagePanel(){
@@ -65,6 +68,26 @@ public class MainPage extends JFrame {
         add(mainPagePanel);
     }
 
+    public void addBackground(){
+        JPanel backgroundPanel = new JPanel(){
+            @Override
+            protected void paintComponent(Graphics g){
+                super.paintComponent(g);
+                ImageIcon backgroundIcon = getGameBackgroundImg();
+                Image backgroundImage = backgroundIcon.getImage();
+
+                g.drawImage(backgroundImage, 0 ,0, getWidth(), getHeight(), this);
+            }
+        };
+
+        backgroundPanel.setBounds(0,0, MAINPAGE_SIZE_WIDTH, MAINPAGE_SIZE_HEIGHT);
+        mainPagePanel.add(backgroundPanel);
+    }
+
+    private ImageIcon getGameBackgroundImg() {
+        return new ImageIcon("source/background/mainpagebackground.png");
+    }
+
     /**
      * 버튼의 모양과 위치를 설정하고 mainPAgePanel에 추가하는 메서드
      */
@@ -73,13 +96,13 @@ public class MainPage extends JFrame {
         String filePath = "source/button";
 
         int buttonX = 518;
-        int buttonY = 70;
+        int buttonY = 290;
         int buttonWidth = 245;
         int buttonHeight = 70;
 
-        ImageIcon singlePlayIcon = new ImageIcon(filePath+"singlePlay.png");
-        ImageIcon closeIcon = new ImageIcon(filePath+"close.png");
-        ImageIcon multiPlayIcon = new ImageIcon(filePath+"multiplay.png");
+        ImageIcon singlePlayIcon = new ImageIcon(filePath+"/singlePlay.png");
+        ImageIcon closeIcon = new ImageIcon(filePath+"/close.png");
+        ImageIcon multiPlayIcon = new ImageIcon(filePath+"/multiplay.png");
 
         singlePlayBt = new JButton(singlePlayIcon);
         multiPlayBt = new JButton(multiPlayIcon);

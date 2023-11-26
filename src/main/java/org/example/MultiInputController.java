@@ -1,6 +1,7 @@
 package org.example;
 
 import java.util.logging.Logger;
+import org.example.board.Board;
 import org.example.model.KeyInput;
 import org.example.service.WebSocketService;
 
@@ -8,10 +9,10 @@ public class MultiInputController {
 
     Logger logger= Logger.getLogger(KeyInputController.class.getName());
     private final KeyInput input;
-    private final BoardController controller;
+    private final Board controller;
 
 
-    public MultiInputController(KeyInput input, BoardController controller) {
+    public MultiInputController(KeyInput input, Board controller) {
         logger.info("MultiInputController start");
         this.input = input;
         this.controller=controller;
@@ -24,7 +25,7 @@ public class MultiInputController {
         if(keycode == input.getPause())
             controller.pause();
 
-        if (!controller.isPaused()) {
+        if (!controller.getIsPaused()) {
 
             if (keycode == input.getMoveLeft()) {
                 WebSocketService.getInstance().sendMessage("left");

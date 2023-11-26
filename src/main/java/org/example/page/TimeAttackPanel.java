@@ -1,8 +1,10 @@
 package org.example.page;
 
+import javax.swing.KeyStroke;
 import org.example.board.TimeAttackBoard;
 
 import javax.swing.JPanel;
+import org.example.model.KeyInput;
 import org.example.score.TimeAttackScore;
 
 
@@ -11,8 +13,8 @@ public class TimeAttackPanel extends GamePanel {
 
 
 
-    public TimeAttackPanel(){
-        super();
+    public TimeAttackPanel(KeyInput keyInput){
+        super(keyInput);
         addBoard(415, 10);
         drawHighScore(new TimeAttackScore().getHighScore());
         addBackground();

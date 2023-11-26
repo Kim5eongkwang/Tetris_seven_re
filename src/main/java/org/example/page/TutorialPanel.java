@@ -9,6 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import org.example.board.TutorialBoard;
+import org.example.model.KeyInput;
 
 public class TutorialPanel extends GamePanel{
     private TutorialBoard board;
@@ -16,8 +17,8 @@ public class TutorialPanel extends GamePanel{
     private JButton resetButton;
     private JButton skipButton;
 
-    public TutorialPanel(){
-        super();
+    public TutorialPanel(KeyInput keyInput){
+        super(keyInput);
         addBoard(415,110);
         setTutorialStepLabel();
         setSRSInfoIcon();

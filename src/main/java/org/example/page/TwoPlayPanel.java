@@ -2,14 +2,16 @@ package org.example.page;
 
 import org.example.board.TwoPlayBoard;
 import javax.swing.JPanel;
+import org.example.model.KeyInput;
 
 public class TwoPlayPanel extends GamePanel{
+
     private TwoPlayBoard player1;
     private TwoPlayBoard player2;
     private int player1RemovedLine = 0;
     private int player2RemovedLine = 0;
-    public TwoPlayPanel(){
-        super();
+    public TwoPlayPanel(KeyInput p1key, KeyInput p2key){
+        super(p1key);
         addBoard(100,100);
         addBackground();
     }

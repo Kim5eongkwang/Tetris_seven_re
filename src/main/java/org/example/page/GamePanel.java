@@ -4,6 +4,10 @@ import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.WindowConstants;
+import org.example.AdapterController;
+import org.example.KeyInputController;
+import org.example.board.Board;
+import org.example.model.KeyInput;
 import org.example.score.Score;
 
 import java.awt.Dimension;
@@ -19,12 +23,14 @@ public abstract class GamePanel extends JPanel{
     public JFrame frame;
     private int panelWidth = 1280;
     private int panelHeight = 720;
+    KeyInput keyInput;
 
-    protected GamePanel(){
+    protected GamePanel(KeyInput keyInput){
         frame = new JFrame();
+        this.keyInput = keyInput;
         frame.setLayout(null);
         frame.setSize(new Dimension(panelWidth, panelHeight));
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         frame.setLocationRelativeTo(null);
     }
     public abstract void addBoard(int posX, int posY);
@@ -79,6 +85,11 @@ public abstract class GamePanel extends JPanel{
         highScoreLabel.setForeground(Color.WHITE);
         highScoreLabel.setBounds(0,0,250,40);
         frame.add(highScoreLabel);
+    }
+
+    public void setAdapter(Board board){
+        AdapterController adapterController = new AdapterController();
+        adapterController.addList(new KeyInputController(keyInput,board));
     }
 
 }

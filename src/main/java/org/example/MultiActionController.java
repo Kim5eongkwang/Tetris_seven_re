@@ -1,18 +1,17 @@
 package org.example;
 
 import java.util.logging.Logger;
+import org.example.board.Board;
 
 public class MultiActionController {
     Logger logger = Logger.getLogger(KeyInputController.class.getName());
 
-    private final BoardController controller;
-    private final PieceController pieceController;
+    private final Board controller;
 
-    public MultiActionController(BoardController controller) {
+    public MultiActionController(Board controller) {
         logger.info("MultiActionController start");
 
         this.controller = controller;
-        this.pieceController = controller.getPieceController();
     }
 
     public void action(String message) throws CloneNotSupportedException {
@@ -21,22 +20,22 @@ public class MultiActionController {
         //if (message.equals("pause"))
             //controller.pause();
 
-        if (!controller.isPaused()) {
+        if (!controller.getIsPaused()) {
 
             if (message.equals("left")) {
-                pieceController.moveLeft();
+                controller.moveLeft();
             } else if (message.equals("right")) {
-                pieceController.moveRight();
+                controller.moveRight();
             } else if (message.equals("hold")) {
-                pieceController.holdingPiece();
+                controller.holdPiece();
             } else if (message.equals("rotateLeft")) {
-                pieceController.rotateLeft();
+                controller.rotateLeftCurPiece();
             } else if (message.equals("rotateRight")) {
-                pieceController.rotateRight();
+                controller.rotateRightCurPiece();
             } else if (message.equals("dropDown")) {
-                pieceController.dropDown();
+                controller.droppedCurPiece();
             } else if (message.equals("oneLineDown")) {
-                pieceController.oneLineDown();
+                controller.oneLineDownCurPiece();
             }
         }
     }
