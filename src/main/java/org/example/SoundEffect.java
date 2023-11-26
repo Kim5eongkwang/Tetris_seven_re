@@ -13,15 +13,13 @@ import javax.sound.sampled.UnsupportedAudioFileException;
 
 public class SoundEffect {
     private SoundEffect(){};
-    public static void playSound(boolean isLoop) {
+    public static void playSound() {
         try {
             Clip clip = AudioSystem.getClip();
             File audioFile = new File("source/finger_snap.wav");
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(audioFile);
             clip.open(audioStream);
             clip.start();
-            if (isLoop)
-                clip.loop(Clip.LOOP_CONTINUOUSLY);
         } catch (LineUnavailableException e) {
             e.printStackTrace();
         } catch (UnsupportedAudioFileException e) {

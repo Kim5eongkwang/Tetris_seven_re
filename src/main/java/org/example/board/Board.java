@@ -7,10 +7,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 import org.example.BlockBoxData;
 import org.example.BlockBoxPanel;
 import org.example.BlockGenerator;
+import org.example.BlockImg;
 import org.example.Counter;
 import org.example.GameController;
 import org.example.GameTimer;
@@ -46,7 +51,6 @@ public abstract class Board extends JPanel implements Square {
 		controller.start();
 		blockBoxPanel = new BlockBoxPanel();
 		board = new Tetrominoes[BoardWidth * BoardHeight];
-		//addKeyListener(new TAdapter());
 		clearBoard();
 		setBlockGenerator(new RandomBlockGenerator());
 		setGameTimer(new Counter(this));
@@ -132,8 +136,12 @@ public abstract class Board extends JPanel implements Square {
 		super.paint(g);
 
 		drawBoard(g);
-		drawPiece(g, curPiece);
-		drawPiece(g, ghostPiece);
+		try {
+			drawCurPiece(g);
+		} catch (IOException e) {
+			throw new RuntimeException(e);
+		}
+		drawGhostPiece(g);
 	}
 
 	private void drawBoard(Graphics g){
@@ -144,12 +152,36 @@ public abstract class Board extends JPanel implements Square {
 			for (int j = 0; j < BoardWidth; ++j) {
 				Tetrominoes shape = shapeAt(j, BoardHeight - i - 1);
 				if (shape != Tetrominoes.NoShape)
-					drawSquare(g, 0 + j * squareWidth(), boardTop + i * squareHeight(), shape);
+					drawSquare(g, j * squareWidth(), boardTop + i * squareHeight(), shape);
+				if(shape == Tetrominoes.NoShape)
+					drawGrid(g,j * squareWidth(),boardTop + i * squareHeight());
 			}
 		}
 	}
 
-	private void drawPiece(Graphics g, Shape piece){
+	public void drawGrid(Graphics g, int x, int y) {
+		Color color = new Color(150, 150, 150);
+
+		g.setColor(color);
+		g.drawRect(x, y, squareWidth(), squareHeight());
+	}
+
+	private void drawCurPiece(Graphics g) throws IOException {
+		Shape piece = this.curPiece;
+		Dimension size = getSize();
+		int boardTop = (int) size.getHeight() - BoardHeight * squareHeight();
+		if (curPiece.getShape() != Tetrominoes.NoShape) {
+			for (int i = 0; i < 4; ++i) {
+				int x = piece.getCurX() + piece.x(i);
+				int y = piece.getCurY() - piece.y(i);
+				drawImgSquare(g, 0 + x * squareWidth(), boardTop + (BoardHeight - y - 1) * squareHeight(),
+						piece.getShape());
+			}
+		}
+	}
+
+	private void drawGhostPiece(Graphics g){
+		Shape piece = this.ghostPiece;
 		Dimension size = getSize();
 		int boardTop = (int) size.getHeight() - BoardHeight * squareHeight();
 		if (curPiece.getShape() != Tetrominoes.NoShape) {
@@ -282,7 +314,7 @@ public abstract class Board extends JPanel implements Square {
 			}
 		}
 		if (numFullLines > 0) {
-			SoundEffect.playSound(false);
+			SoundEffect.playSound();
 			numLinesRemoved += numFullLines;
 			curPiece.initShape(Tetrominoes.NoShape);
 			repaint();
@@ -345,6 +377,11 @@ public abstract class Board extends JPanel implements Square {
 			}
 		}
 		System.out.println(curPiece.getRotateIndex());
+	}
+
+	public void drawImgSquare(Graphics g, int x, int y, Tetrominoes shape) throws IOException {
+		BufferedImage bufferedImage = BlockImg.getImage(shape);
+		g.drawImage(bufferedImage, x, y, squareWidth(), squareHeight(), null);
 	}
 	@Override
 	public void drawSquare(Graphics g, int x, int y, Tetrominoes shape) {
@@ -452,54 +489,5 @@ public abstract class Board extends JPanel implements Square {
 	public void moveRight() {
 		tryMoveCurPiece(curPiece, curPiece.getCurX() + 1, curPiece.getCurY());
 	}
-/*
-	class TAdapter extends KeyAdapter {
-		public void keyPressed(KeyEvent e) {
 
-			if (!isStarted || curPiece.getShape() == Tetrominoes.NoShape) {
-				return;
-			}
-
-			int keycode = e.getKeyCode();
-
-			if (keycode == 'p' || keycode == 'P') {
-				pause();
-				return;
-			}
-
-			if (isPaused)
-				return;
-
-			switch (keycode) {
-				case KeyEvent.VK_LEFT:
-					tryMoveCurPiece(curPiece, curPiece.getCurX() - 1, curPiece.getCurY());
-					break;
-				case KeyEvent.VK_RIGHT:
-					tryMoveCurPiece(curPiece, curPiece.getCurX() + 1, curPiece.getCurY());
-					break;
-				case KeyEvent.VK_DOWN:
-					rotateRightCurPiece();
-					break;
-				case KeyEvent.VK_UP:
-					rotateLeftCurPiece();
-					break;
-				case KeyEvent.VK_SPACE:
-					dropDownCurPiece();
-					break;
-				case 'd', 'D':
-					oneLineDownCurPiece();
-					break;
-				case 'h', 'H':
-					holdPiece();
-					break;
-				case 'p', 'P':
-					pause();
-					break;
-				default:
-					break;
-			}
-		}
-	}
-
- */
 }

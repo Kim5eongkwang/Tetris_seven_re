@@ -1,11 +1,13 @@
 package org.example.score;
 
+import java.util.Objects;
+
 public class SprintScore extends Score{
     private static final String scoreName = "sprintHighScore";
     @Override
     public String getHighScore() {
         String score = bringScore(scoreName);
-        if(score == "99:99") return "NA";
+        if(Objects.equals(score, "99:99")) return "NA";
 
         return score;
     }
