@@ -376,6 +376,9 @@ public abstract class Board extends JPanel implements Square {
 		gameTimer.pause();
 		isStarted = false;
 	}
+	public boolean getIsStarted(){
+		return isStarted;
+	}
 	public void setTimer(GameTimer gameTimer){
 		this.gameTimer = gameTimer;
 	}

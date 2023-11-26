@@ -17,6 +17,7 @@ public class TutorialPanel extends GamePanel{
     private JButton skipButton;
 
     public TutorialPanel(){
+        super();
         addBoard(415,110);
         setTutorialStepLabel();
         setSRSInfoIcon();
@@ -30,6 +31,11 @@ public class TutorialPanel extends GamePanel{
         boardView.setBounds(posX, posY, 350, 500);
         frame.add(boardView);
         board.start();
+    }
+
+    @Override
+    public void raiseGameClearFrame() {
+        setGameClearFrame("Lets play!");
     }
 
     private void setTutorialStepLabel(){
@@ -83,8 +89,5 @@ public class TutorialPanel extends GamePanel{
             }
         });
     }
-
-
-
 
 }

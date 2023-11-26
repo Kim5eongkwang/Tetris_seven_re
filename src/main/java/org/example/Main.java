@@ -12,7 +12,7 @@ import org.example.page.TwoPlayPanel;
 
 public class  Main {
     public static void main(String[] args) throws IOException {
-        GamePanel page = new TutorialPanel();
+        GamePanel page = new TimeAttackPanel();
         JFrame frame = page.getFrame();
         frame.setVisible(true);
     }

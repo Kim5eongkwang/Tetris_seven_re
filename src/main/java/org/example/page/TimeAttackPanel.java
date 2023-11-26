@@ -3,6 +3,7 @@ package org.example.page;
 import org.example.board.TimeAttackBoard;
 
 import javax.swing.JPanel;
+import org.example.score.TimeAttackScore;
 
 
 public class TimeAttackPanel extends GamePanel {
@@ -13,6 +14,7 @@ public class TimeAttackPanel extends GamePanel {
     public TimeAttackPanel(){
         super();
         addBoard(415, 10);
+        drawHighScore(new TimeAttackScore().getHighScore());
         addBackground();
     }
 
@@ -24,5 +26,11 @@ public class TimeAttackPanel extends GamePanel {
         frame.add(boardView);
         boardView.setBounds(posX, posY, 550, 600);
         board.start();
+    }
+
+    @Override
+    public void raiseGameClearFrame() {
+        String score = Integer.toString(board.getNumLinesRemoved());
+        setGameClearFrame("Score : " + score);
     }
 }

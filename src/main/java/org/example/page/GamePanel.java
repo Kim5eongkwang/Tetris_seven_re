@@ -1,5 +1,8 @@
 package org.example.page;
 
+import java.awt.Color;
+import java.awt.Font;
+import javax.swing.JLabel;
 import javax.swing.WindowConstants;
 import org.example.score.Score;
 
@@ -62,9 +65,19 @@ public abstract class GamePanel extends JPanel{
         closeFrame.showGameOver();
     }
 
-    public void raiseGameClearFrame(String msg, String score) {
-        CloseFrame closeFrame = new CloseFrame(getFrame());
-        closeFrame.showGameClear(msg, score);
+    public abstract void raiseGameClearFrame();
+    public void setGameClearFrame(String msg){
+        CloseFrame closeFrame = new CloseFrame(frame);
+        closeFrame.showGameClear(msg);
+    }
+
+    public void drawHighScore(String score){
+        String highscore = "High score : ";
+        JLabel highScoreLabel = new JLabel(highscore+score);
+        highScoreLabel.setFont(new Font("Microsoft YaHei",Font.BOLD,25));
+        highScoreLabel.setForeground(Color.WHITE);
+        highScoreLabel.setBounds(0,0,250,40);
+        frame.add(highScoreLabel);
     }
 
 }

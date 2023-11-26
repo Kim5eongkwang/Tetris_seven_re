@@ -51,6 +51,11 @@ public class SprintBoard extends Board {
     @Override
     public void gameClear() {
         super.gameClear();
+        gamePage.raiseGameClearFrame();
+    }
+
+    public String getCurTime(){
+        return getTimer().getCurTime();
     }
 
 

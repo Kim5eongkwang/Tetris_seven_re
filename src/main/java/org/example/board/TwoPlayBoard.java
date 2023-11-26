@@ -4,7 +4,6 @@ import java.awt.Color;
 import javax.swing.JPanel;
 import org.example.Counter;
 import org.example.GameController;
-import org.example.RandomBlockGenerator;
 import org.example.page.TwoPlayPanel;
 
 
@@ -20,9 +19,8 @@ public class TwoPlayBoard extends Board {
         boardStatus = new TwoPlayBoardStatus();
         updateSpeedLabel();
         this.gamepage = parent;
+        getController().setDelay(100);
     }
-
-
 
     @Override
     public JPanel getComponent() {
@@ -38,12 +36,7 @@ public class TwoPlayBoard extends Board {
     @Override
     public void gameOver() {
         super.gameOver();
-        gamepage.raiseGameOverFrame();
-    }
-
-    @Override
-    public void gameClear() {
-        super.gameClear();
+        gamepage.raiseGameClearFrame();
     }
 
     public void updateTimerLabel(String time) {

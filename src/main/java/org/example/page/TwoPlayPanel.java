@@ -9,6 +9,7 @@ public class TwoPlayPanel extends GamePanel{
     private int player1RemovedLine = 0;
     private int player2RemovedLine = 0;
     public TwoPlayPanel(){
+        super();
         addBoard(100,100);
         addBackground();
     }
@@ -62,6 +63,24 @@ public class TwoPlayPanel extends GamePanel{
     private void speedUpPlayer2(int num){
         if(num < 0) return;
         player2.reduceDelay(num);
+    }
+
+    private void cleanUp(){
+        player1 = null;
+        player2 = null;
+    }
+
+    @Override
+    public void raiseGameClearFrame(){
+        if(!player1.getIsStarted()) {
+            player2.pause();
+            cleanUp();
+            setGameClearFrame("Winner is player2");
+            return;
+        }
+        player1.pause();
+        cleanUp();
+        setGameClearFrame("Winner is player1");
     }
 
 }

@@ -71,6 +71,16 @@ public class TutorialBoard extends Board{
     }
 
     @Override
+    public int removeFullLines() {
+        int ret = super.removeFullLines();
+
+        if(getNumLinesRemoved() >= 12)
+            gameClear();
+
+        return ret;
+    }
+
+    @Override
     public JPanel getComponent() {
         return super.getComponent();
     }
@@ -90,6 +100,12 @@ public class TutorialBoard extends Board{
 
         stepIndex++;
         resetStepTimer();
+    }
+
+    @Override
+    public void gameClear() {
+        super.gameClear();
+        gamePage.raiseGameClearFrame();
     }
 
     private void resetStepTimer(){

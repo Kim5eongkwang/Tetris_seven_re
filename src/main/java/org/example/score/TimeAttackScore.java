@@ -1,13 +1,17 @@
 package org.example.score;
 
-public class TimeAttackScore extends Score {
-
-    public TimeAttackScore(){
-        setScoreName("timeAttackHighScore");
+public class TimeAttackScore extends Score{
+    private static final String scoreName = "timeAttackHighScore";
+    @Override
+    public String getHighScore() {
+        String score = BringScore(scoreName);
+        return score;
     }
 
     @Override
     public void saveScore(String score) {
-        //구현 필요
+        int curScore = Integer.parseInt(score);
+        int highScore = Integer.parseInt(getHighScore());
+        if(curScore > highScore)    pushHighScore(scoreName, score);
     }
 }
