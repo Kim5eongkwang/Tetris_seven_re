@@ -91,12 +91,11 @@ public abstract class GamePanel extends JPanel{
         frame.addKeyListener(adapterController);
         adapterController.addList(new KeyInputController(this.p1key,board));
     }
-    public void setAdapter(Board p1Board, Board p2Board){
+    public void setAdapter(Board p1Board, Board p2Board) {
         AdapterController adapterController = new AdapterController();
         frame.setFocusable(true);
         frame.addKeyListener(adapterController);
         adapterController.addList(new KeyInputController(this.p1key, p1Board));
         adapterController.addList(new KeyInputController(this.p2key, p2Board));
     }
-
 }
