@@ -1,17 +1,21 @@
-package org.example;
+package org.example.service;
+;
 
-import java.util.logging.Logger;
 import org.example.board.Board;
 
-public class MultiActionController {
-    Logger logger = Logger.getLogger(KeyInputController.class.getName());
+import java.util.logging.Logger;
+
+public class MultiActionService {
+    Logger logger = Logger.getLogger(MultiActionService.class.getName());
 
     private final Board controller;
 
-    public MultiActionController(Board controller) {
+
+    public MultiActionService(Board controller) {
         logger.info("MultiActionController start");
 
         this.controller = controller;
+
     }
 
     public void action(String message) throws CloneNotSupportedException {

@@ -9,8 +9,9 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import org.example.model.KeyInput;
-import org.example.model.Rank;
+import org.example.domian.KeyInput;
+
+import org.example.domian.Rank;
 import org.example.service.WebSocketService;
 import lombok.Getter;
 
@@ -158,6 +159,7 @@ public class MutliPlayPage extends JPanel{
             @Override
             public void actionPerformed(ActionEvent e) {
                 List<Rank> list = WebSocketService.getInstance().ranking();
+
                 String rank="               <<ranking>>   \n";
                 for(int i=0;i<list.size();i++){
                     rank=rank+"   "+ list.get(i).getId()+"    |    "+list.get(i).getRank()+"    |    "+list.get(i).getScore()+"\n";

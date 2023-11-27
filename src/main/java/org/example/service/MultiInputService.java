@@ -1,22 +1,15 @@
-package org.example;
+package org.example.service;
 
-import java.util.logging.Logger;
+
 import org.example.board.Board;
-import org.example.model.KeyInput;
-import org.example.service.WebSocketService;
+import org.example.domian.KeyInput;
+import org.example.webSocket.WebSocketService;
 
-public class MultiInputController {
-
-    Logger logger= Logger.getLogger(KeyInputController.class.getName());
-    private final KeyInput input;
-    private final Board controller;
+public class MultiInputService extends AbstractInputService {
 
 
-    public MultiInputController(KeyInput input, Board controller) {
-        logger.info("MultiInputController start");
-        this.input = input;
-        this.controller=controller;
-        
+    public MultiInputService(KeyInput input, Board controller) {
+        super(input,  controller);
     }
 
     public void action(int keycode) throws CloneNotSupportedException {

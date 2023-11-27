@@ -9,7 +9,7 @@ import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import org.example.board.TutorialBoard;
-import org.example.model.KeyInput;
+import org.example.domian.KeyInput;
 
 public class TutorialPanel extends GamePanel{
     private TutorialBoard board;

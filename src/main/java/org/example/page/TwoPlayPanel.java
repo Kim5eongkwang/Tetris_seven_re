@@ -2,7 +2,7 @@ package org.example.page;
 
 import org.example.board.TwoPlayBoard;
 import javax.swing.JPanel;
-import org.example.model.KeyInput;
+import org.example.domian.KeyInput;
 
 public class TwoPlayPanel extends GamePanel{
 
