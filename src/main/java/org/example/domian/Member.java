@@ -1,4 +1,4 @@
-package org.example.model;
+package org.example.domian;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -9,7 +9,4 @@ public class Member {
     public static String myId;
     private String password;
     private String sessionId;
-
-
-
 }

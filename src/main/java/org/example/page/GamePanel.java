@@ -4,10 +4,12 @@ import java.awt.Color;
 import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.WindowConstants;
-import org.example.AdapterController;
-import org.example.KeyInputController;
+
+
 import org.example.board.Board;
-import org.example.model.KeyInput;
+import org.example.domian.KeyInput;
+import org.example.service.AdapterService;
+import org.example.service.KeyInputService;
 
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -86,16 +88,16 @@ public abstract class GamePanel extends JPanel{
     }
 
     public void setAdapter(Board board){
-        AdapterController adapterController = new AdapterController();
+        AdapterService adapterController = new AdapterService();
         frame.setFocusable(true);
         frame.addKeyListener(adapterController);
-        adapterController.addList(new KeyInputController(this.p1key,board));
+        adapterController.addList(new KeyInputService(this.p1key,board));
     }
     public void setAdapter(Board p1Board, Board p2Board) {
-        AdapterController adapterController = new AdapterController();
+        AdapterService adapterController = new AdapterService();
         frame.setFocusable(true);
         frame.addKeyListener(adapterController);
-        adapterController.addList(new KeyInputController(this.p1key, p1Board));
-        adapterController.addList(new KeyInputController(this.p2key, p2Board));
+        adapterController.addList(new KeyInputService(this.p1key, p1Board));
+        adapterController.addList(new KeyInputService(this.p2key, p2Board));
     }
 }

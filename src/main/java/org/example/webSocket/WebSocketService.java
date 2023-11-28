@@ -1,13 +1,9 @@
-package org.example.service;
+package org.example.webSocket;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.io.IOException;
-import java.net.URI;
-import java.util.ArrayList;
-import java.util.List;
-import org.example.domian.Member;
-import org.example.domian.Rank;
+
+import lombok.Getter;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
@@ -15,26 +11,31 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
+import org.example.domian.Member;
+import org.example.domian.Rank;
 import org.json.simple.JSONObject;
+
+import java.io.IOException;
+import java.net.URI;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class WebSocketService {
 
+    @Getter
     private static WebSocketService instance= new WebSocketService();
     public enum MessageType{
         ENTER, GAME, START, END
     }
-    private String serverUri="http://52.79.64.157:8080/";
-    private String socketUri="ws://52.79.64.157:8080/ws/chat";
-    //private String serverUri="http://localhost:8080/";
-    //private String socketUri="ws://localhost:8080/ws/chat";
-    private HttpClient httpClient = HttpClients.createDefault();
+    private final String serverUri="http://52.79.64.157:8080/";
+    private final String socketUri="ws://52.79.64.157:8080/ws/chat";
+
+    private final HttpClient httpClient = HttpClients.createDefault();
     private MyWebSocketClient client;
     protected WebSocketService() {
     }
-    public static WebSocketService getInstance(){
-        return instance;
-    }
+
     public void startMatching(){
         client=new MyWebSocketClient(URI.create(socketUri));
         client.connect();
@@ -142,6 +143,8 @@ public class WebSocketService {
             else if(responseString.equals("member join fail"))
                 return false;
             else return false;
+        } catch (ClientProtocolException e) {
+            throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -170,6 +173,8 @@ public class WebSocketService {
                    list.add(ranking);
                 }
             }
+        } catch (ClientProtocolException e) {
+            throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -189,6 +194,8 @@ public class WebSocketService {
                 return false;
             else return false;
 
+        } catch (ClientProtocolException e) {
+            throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
@@ -200,6 +207,8 @@ public class WebSocketService {
         try {
             HttpGet request = new HttpGet(uri);
             httpClient.execute(request);
+        } catch (ClientProtocolException e) {
+            throw new RuntimeException(e);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

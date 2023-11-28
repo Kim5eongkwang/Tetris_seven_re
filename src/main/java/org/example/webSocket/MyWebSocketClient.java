@@ -1,14 +1,16 @@
-package org.example.service;
+package org.example.webSocket;
 
-import java.net.URI;
 
 import lombok.Getter;
 import lombok.Setter;
+import org.example.service.MultiActionService;
 import org.java_websocket.client.WebSocketClient;
 import org.java_websocket.handshake.ServerHandshake;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+
+import java.net.URI;
 
 
 

@@ -1,4 +1,4 @@
-package org.example;
+package org.example.service;
 
 
 import java.awt.event.KeyAdapter;
@@ -6,12 +6,12 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 import java.util.logging.Logger;
 
-public class AdapterController extends KeyAdapter {
-    Logger logger = Logger.getLogger(AdapterController.class.getName());
-    ArrayList<KeyInputController> memberList= new ArrayList<>();
+public class AdapterService extends KeyAdapter {
+    Logger logger = Logger.getLogger(AdapterService.class.getName());
+    private final ArrayList<AbstractInputService> memberList= new ArrayList<>();
 
 
-    public AdapterController(){
+    public AdapterService(){
         logger.info("adaptController start");
     }
     @Override
@@ -19,16 +19,17 @@ public class AdapterController extends KeyAdapter {
         int in= e.getKeyCode();
         in= Character.toLowerCase(in);
         logger.info("pressed : "+in);
-        for(int i=0;i<memberList.size();i++){
+        for (AbstractInputService abstractInputService : memberList) {
             try {
-                memberList.get(i).action(in);
+                abstractInputService.action(in);
             } catch (CloneNotSupportedException ex) {
                 throw new RuntimeException(ex);
             }
         }
     }
 
-    public void addList(KeyInputController controller){
+
+    public void addList(AbstractInputService controller){
         memberList.add(controller);
     }
 

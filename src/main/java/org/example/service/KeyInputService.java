@@ -1,20 +1,15 @@
-package org.example;
+package org.example.service;
 
-import java.util.logging.Logger;
+
 import org.example.board.Board;
-import org.example.model.KeyInput;
+import org.example.domian.KeyInput;
+
+public class KeyInputService extends AbstractInputService {
+
+    public KeyInputService(KeyInput input, Board controller) {
+        super(input, controller);
 
 
-public class KeyInputController {
-    Logger logger= Logger.getLogger(KeyInputController.class.getName());
-    private final KeyInput input;
-    private final Board controller;
-
-
-    public KeyInputController(KeyInput input, Board controller) {
-        logger.info("keyInputController start");
-        this.input = input;
-        this.controller=controller;
     }
 
     public void action(int keycode) throws CloneNotSupportedException {
