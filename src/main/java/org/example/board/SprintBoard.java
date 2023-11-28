@@ -1,8 +1,7 @@
 package org.example.board;
 
 import javax.swing.JPanel;
-import org.example.Counter;
-import org.example.RandomBlockGenerator;
+
 import org.example.page.SprintPanel;
 
 

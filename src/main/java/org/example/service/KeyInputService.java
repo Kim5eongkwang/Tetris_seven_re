@@ -2,7 +2,7 @@ package org.example.service;
 
 
 import org.example.board.Board;
-import org.example.domian.KeyInput;
+import org.example.entity.KeyInput;
 
 public class KeyInputService extends AbstractInputService {
 

@@ -1,4 +1,4 @@
-package org.example;
+package org.example.timer;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;

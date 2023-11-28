@@ -1,8 +1,7 @@
 package org.example.board;
 
-import org.example.GameController;
-import org.example.RandomBlockGenerator;
-import org.example.ReverseCounter;
+import org.example.service.GameService;
+import org.example.timer.ReverseCounter;
 import org.example.page.TimeAttackPanel;
 
 
@@ -57,7 +56,7 @@ public class TimeAttackBoard extends Board {
     }
 
     private void reduceDelay(int reduceNum){
-        GameController controller = getController();
+        GameService controller = getController();
         controller.minusDelay(reduceNum);
         updateSpeedLabel();
     }
@@ -98,7 +97,7 @@ public class TimeAttackBoard extends Board {
     }
 
     private void updateSpeedLabel(){
-        GameController controller = getController();
+        GameService controller = getController();
         int delay = controller.getDelay();
         Double dropSpeed = 1000.0 / delay;
         String speed = String.format("%.2f/s", dropSpeed);

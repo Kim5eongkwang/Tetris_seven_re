@@ -9,12 +9,15 @@ import org.java_websocket.handshake.ServerHandshake;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 @Getter
 public class MyWebSocketClient extends WebSocketClient {
-
+    private final Logger log = LoggerFactory.getLogger(this.getClass().getSimpleName());
+    private static final String SENDER="sender";
+    private static final String MESSAGE="message";
 
     private String sender1;
     private String sender2;
@@ -23,6 +26,7 @@ public class MyWebSocketClient extends WebSocketClient {
     private String sessionId;
     private double seed1;
     private double seed2;
+
     @Setter
     private MultiActionService controller1;
     @Setter
@@ -36,12 +40,12 @@ public class MyWebSocketClient extends WebSocketClient {
 
     @Override
     public void onOpen(ServerHandshake handshakeData) {
-        System.out.println("connected");
+        log.info("connected");
     }
 
     @Override
     public void onMessage(String message) {
-        System.out.println("message in");
+        log.info("message in");
         JSONObject obj;
         JSONParser jsonParser= new JSONParser();
         try {
@@ -50,68 +54,68 @@ public class MyWebSocketClient extends WebSocketClient {
 
             //start
             if(obj.get("type").equals("START")){
-                if(obj.get("sender").equals("roomId")){
-                    roomId=obj.get("message").toString();
-                    System.out.println("roomID" +roomId);
+                if(obj.get(SENDER).equals("roomId")){
+                    roomId=obj.get(MESSAGE).toString();
+                    log.info("roomID" +roomId);
                 }
-                else if(obj.get("sender").equals("sessionId")){
-                    sessionId=obj.get("message").toString();
-                    System.out.println("sessionID"+sessionId);
+                else if(obj.get(SENDER).equals("sessionId")){
+                    sessionId=obj.get(MESSAGE).toString();
+                    log.info("sessionID"+sessionId);
 
                 }
             }
             //enter
             else if(obj.get("type").equals("ENTER")){
-                System.out.println("Client enter");
-                if(obj.get("sender").equals("player1")){
-                    sender1=obj.get("message").toString();
-                    System.out.println("sender1" +sender1);
+                log.info("Client enter");
+                if(obj.get(SENDER).equals("player1")){
+                    sender1=obj.get(MESSAGE).toString();
+                    log.info("sender1" +sender1);
                 }
-                else if(obj.get("sender").equals("player2")){
-                    sender2=obj.get("message").toString();
-                    System.out.println("sender2" +sender2);
+                else if(obj.get(SENDER).equals("player2")){
+                    sender2=obj.get(MESSAGE).toString();
+                    log.info("sender2" +sender2);
                 }
-                else if(obj.get("sender").equals("seed")){
-                    String splitStrArr[] = obj.get("message").toString().split(",");
+                else if(obj.get(SENDER).equals("seed")){
+                    String splitStrArr[] = obj.get(MESSAGE).toString().split(",");
                      seed1=Double.parseDouble(splitStrArr[0]);
                      seed2=Double.parseDouble(splitStrArr[1]);
-                    System.out.println("seed1 : "+seed1 +" seed2 : "+seed2);
+                    log.info("seed1 : "+seed1 +" seed2 : "+seed2);
                 }
             }
             //game
             else if(obj.get("type").equals("GAME")){
-                String inputSessionId=obj.get("sender").toString();
+                String inputSessionId=obj.get(SENDER).toString();
                 if(!inputSessionId.equals(sender1))
-                    System.out.println("not equals sender1");
+                    log.warn("not equals sender1");
                 if(!inputSessionId.equals(sender2))
-                    System.out.println("not equals sender2");
+                    log.warn("not equals sender2");
 
                 try {
                     if(inputSessionId.equals(sender1)){
-                        System.out.println("equals sender1");
-                        action=obj.get("message").toString();
-                        System.out.println("action : "+action);
+                        log.info("equals sender1");
+                        action=obj.get(MESSAGE).toString();
+                        log.info("action : "+action);
                         controller1.action(action);
-                        System.out.println("action : "+action);
+                        log.info("action : "+action);
                         //작동 호출
                     }else if(inputSessionId.equals(sender2)){
-                        action=obj.get("message").toString();
-                        System.out.println("action : "+action);
+                        action=obj.get(MESSAGE).toString();
+                        log.info("action : "+action);
                         controller2.action(action);
-                        System.out.println("action : "+action);
+                        log.info("action : "+action);
                         //작동 호출
                     }else{
-                        System.out.println("fail");
+                        log.warn("fail");
                     }
                 } catch (CloneNotSupportedException e) {
-                   System.out.println(e.toString());
+                   log.error(e.toString());
                 }
 
 
             }
             //end
             else if(obj.get("type").equals("END")){
-                System.out.println("end game");
+                log.info("end game");
                 //게임 종료
             }
 
@@ -129,11 +133,11 @@ public class MyWebSocketClient extends WebSocketClient {
 
     @Override
     public void onClose(int code, String reason, boolean remote) {
-        System.out.println("connection close");
+        log.info("connection close");
     }
 
     @Override
     public void onError(Exception ex) {
-
+        log.error(ex.toString());
     }
 }

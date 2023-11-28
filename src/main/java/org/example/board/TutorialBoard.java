@@ -4,9 +4,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JPanel;
 import javax.swing.Timer;
-import org.example.Tetrominoes;
+import org.example.data.Tetrominoes;
 import org.example.TutorialBlockGenerator;
-import org.example.domian.KeyInput;
+import org.example.entity.KeyInput;
 import org.example.page.TutorialPanel;
 
 public class TutorialBoard extends Board{

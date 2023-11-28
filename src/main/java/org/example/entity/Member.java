@@ -1,4 +1,4 @@
-package org.example.domian;
+package org.example.entity;
 
 import lombok.Getter;
 import lombok.Setter;

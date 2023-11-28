@@ -1,5 +1,7 @@
 package org.example;
 
+import org.example.data.Tetrominoes;
+
 public class TutorialBlockGenerator implements BlockGenerator{
     private int blockArrayIndex;
     private static Tetrominoes[] blockArray = {

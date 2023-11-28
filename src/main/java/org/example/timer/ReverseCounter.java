@@ -1,6 +1,7 @@
-package org.example;
+package org.example.timer;
 
 import org.example.board.Board;
+import org.example.timer.GameTimer;
 
 import java.awt.event.ActionEvent;
 import java.util.Objects;

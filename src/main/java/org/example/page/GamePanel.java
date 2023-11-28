@@ -7,7 +7,7 @@ import javax.swing.WindowConstants;
 
 
 import org.example.board.Board;
-import org.example.domian.KeyInput;
+import org.example.entity.KeyInput;
 import org.example.service.AdapterService;
 import org.example.service.KeyInputService;
 

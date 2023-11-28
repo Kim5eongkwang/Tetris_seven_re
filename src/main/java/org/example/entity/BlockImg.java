@@ -1,6 +1,7 @@
-package org.example;
+package org.example.entity;
 
-import java.awt.Graphics;
+import org.example.data.Tetrominoes;
+
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;

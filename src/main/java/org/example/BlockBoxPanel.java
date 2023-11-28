@@ -1,5 +1,8 @@
 package org.example;
 
+import org.example.data.Tetrominoes;
+import org.example.entity.BlockBoxData;
+
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;

@@ -1,10 +1,9 @@
 package org.example.page;
 
-import javax.swing.KeyStroke;
 import org.example.board.TimeAttackBoard;
 
 import javax.swing.JPanel;
-import org.example.domian.KeyInput;
+
 import org.example.score.TimeAttackScore;
 
 

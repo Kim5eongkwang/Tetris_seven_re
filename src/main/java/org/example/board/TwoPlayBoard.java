@@ -3,8 +3,8 @@ package org.example.board;
 import java.awt.Color;
 import java.util.Random;
 import javax.swing.JPanel;
-import org.example.Counter;
-import org.example.GameController;
+import org.example.timer.Counter;
+import org.example.service.GameService;
 import org.example.RandomBlockGenerator;
 import org.example.page.TwoPlayPanel;
 
@@ -71,12 +71,12 @@ public class TwoPlayBoard extends Board {
 
     public void reduceDelay(int num){
         if(num < 0) return;
-        GameController controller = getController();
+        GameService controller = getController();
         controller.minusDelay(reduceDelayConst*num);
     }
 
     public void updateSpeedLabel(){
-        GameController controller = getController();
+        GameService controller = getController();
         int delay = controller.getDelay();
         Double dropSpeed = 1000.0 / delay;
         String speed = String.format("%.2f/s", dropSpeed);

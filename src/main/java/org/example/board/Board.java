@@ -4,26 +4,22 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.event.ActionEvent;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
-import javax.imageio.ImageIO;
 import javax.swing.JPanel;
-import org.example.BlockBoxData;
+import org.example.entity.BlockBoxData;
 import org.example.BlockBoxPanel;
 import org.example.BlockGenerator;
-import org.example.BlockImg;
-import org.example.Counter;
-import org.example.GameController;
-import org.example.GameTimer;
+import org.example.entity.BlockImg;
+import org.example.timer.Counter;
+import org.example.service.GameService;
+import org.example.timer.GameTimer;
 import org.example.RandomBlockGenerator;
-import org.example.Shape;
+import org.example.entity.Shape;
 import org.example.SoundEffect;
 import org.example.Square;
-import org.example.Tetrominoes;
+import org.example.data.Tetrominoes;
 
 public abstract class Board extends Square {
 
@@ -32,7 +28,7 @@ public abstract class Board extends Square {
 	public final int BoardWidth = 10;
 	public final int BoardHeight = 22;
 	private transient BlockGenerator blockGenerator;
-	private transient GameController controller;
+	private transient GameService controller;
 	private boolean isFallingFinished = false;
 	private boolean isStarted = false;
 	private boolean isPaused = false;
@@ -47,7 +43,7 @@ public abstract class Board extends Square {
 		setFocusable(true);
 		curPiece = new Shape();
 		ghostPiece = new Shape();
-		controller = new GameController(600, this);
+		controller = new GameService(600, this);
 		controller.start();
 		blockBoxPanel = new BlockBoxPanel();
 		board = new Tetrominoes[BoardWidth * BoardHeight];
@@ -453,7 +449,7 @@ public abstract class Board extends Square {
 		return gameTimer;
 	}
 
-	public GameController getController() {
+	public GameService getController() {
 		return controller;
 	}
 

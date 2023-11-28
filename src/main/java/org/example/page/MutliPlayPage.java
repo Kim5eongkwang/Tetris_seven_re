@@ -9,11 +9,10 @@ import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
-import org.example.domian.KeyInput;
+import org.example.entity.KeyInput;
 
-import org.example.domian.Rank;
+import org.example.entity.Rank;
 import org.example.service.WebSocketService;
-import lombok.Getter;
 
 /**
  * mainPage에서 멀티플레이버튼을 눌렀을 때 나오는 페이지를 관리하는 메서드

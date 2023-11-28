@@ -1,6 +1,8 @@
 package org.example;
 
 
+import org.example.data.Tetrominoes;
+
 public interface BlockGenerator {
 
     public abstract Tetrominoes generateTetrominoes();

@@ -1,4 +1,4 @@
-package org.example;
+package org.example.service;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,11 +7,11 @@ import javax.swing.Timer;
 import org.example.board.Board;
 
 
-public class GameController implements ActionListener{
+public class GameService implements ActionListener{
     Timer timer;
     Board board;
 
-    public GameController(int delay, Board board){
+    public GameService(int delay, Board board){
         this.board = board;
         timer = new javax.swing.Timer(delay, this);
     }

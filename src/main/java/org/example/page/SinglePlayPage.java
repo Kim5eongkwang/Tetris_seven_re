@@ -7,8 +7,7 @@ import java.util.Random;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JPanel;
-import org.example.domian.KeyInput;
-import org.example.domian.Member;
+
 import lombok.Getter;
 
 /**

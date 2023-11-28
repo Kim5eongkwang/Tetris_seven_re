@@ -1,4 +1,6 @@
-package org.example;
+package org.example.entity;
+
+import org.example.data.Tetrominoes;
 
 public class Shape {
 

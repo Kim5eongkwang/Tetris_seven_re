@@ -11,8 +11,8 @@ import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClients;
 import org.apache.http.util.EntityUtils;
-import org.example.domian.Member;
-import org.example.domian.Rank;
+import org.example.entity.Member;
+import org.example.entity.Rank;
 import org.json.simple.JSONObject;
 
 import java.io.IOException;
