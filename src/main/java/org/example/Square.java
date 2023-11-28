@@ -1,5 +1,7 @@
 package org.example;
 
+import org.example.data.Tetrominoes;
+
 import java.awt.Color;
 import java.awt.Graphics;
 import javax.swing.JPanel;
