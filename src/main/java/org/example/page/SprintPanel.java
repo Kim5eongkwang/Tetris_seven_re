@@ -3,7 +3,7 @@ package org.example.page;
 import org.example.board.SprintBoard;
 
 import javax.swing.JPanel;
-import org.example.model.KeyInput;
+
 import org.example.score.SprintScore;
 
 
