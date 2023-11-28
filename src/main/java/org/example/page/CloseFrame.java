@@ -21,7 +21,7 @@ public class CloseFrame extends JFrame {
     }
 
     public void showGameClear(String msg){
-        JLabel msgLabel = new JLabel(msg,JLabel.CENTER);
+        JLabel msgLabel = new JLabel(msg, SwingConstants.CENTER);
         Font font = new Font("Aharon", Font.BOLD, 25);
         msgLabel.setFont(font);
 
