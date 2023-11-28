@@ -1,7 +1,7 @@
 package org.example;
 
 public class TutorialBlockGenerator implements BlockGenerator{
-    private static int blockArrayIndex;
+    private int blockArrayIndex;
     private static Tetrominoes[] blockArray = {
                     Tetrominoes.MirroredLShape,
                     Tetrominoes.SShape,

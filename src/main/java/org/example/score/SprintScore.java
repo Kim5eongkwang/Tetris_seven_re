@@ -3,10 +3,10 @@ package org.example.score;
 import java.util.Objects;
 
 public class SprintScore extends Score{
-    private static final String scoreName = "sprintHighScore";
+    private static final String SCORE_NAME = "sprintHighScore";
     @Override
     public String getHighScore() {
-        String score = bringScore(scoreName);
+        String score = bringScore(SCORE_NAME);
         if(Objects.equals(score, "99:99")) return "NA";
 
         return score;
@@ -24,8 +24,8 @@ public class SprintScore extends Score{
     @Override
     public void saveScore(String score) {
         int curScore = scoreToSec(score);
-        int highScore = scoreToSec(bringScore(scoreName));
+        int highScore = scoreToSec(bringScore(SCORE_NAME));
 
-        if(curScore < highScore)    pushHighScore(scoreName, score);
+        if(curScore < highScore)    pushHighScore(SCORE_NAME, score);
     }
 }

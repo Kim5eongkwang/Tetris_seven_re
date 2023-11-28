@@ -23,7 +23,7 @@ public class SinglePlayPage extends JPanel {
     private JPanel buttonPanel;
     private final MainPage mainPage;  //메인페이지(parent)
     @Getter
-    static ImageIcon undoImg, sprintImg, tutorialImg, timeAttackImg;
+    ImageIcon undoImg, sprintImg, tutorialImg, timeAttackImg;
     @Getter
     JButton sprintBt, tutorialBt, timeAttackBt, undoBt;
     private Random rand;

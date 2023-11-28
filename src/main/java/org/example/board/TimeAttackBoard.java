@@ -13,7 +13,7 @@ public class TimeAttackBoard extends Board {
 
     private int addTimeLimitConst = 5;
     private int delayreduceConst = 7;
-    private TimeAttackBoardStatus boardStatus;
+    transient private TimeAttackBoardStatus boardStatus;
     TimeAttackPanel gamePage;
 
 

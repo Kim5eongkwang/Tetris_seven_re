@@ -25,7 +25,7 @@ public class MutliPlayPage extends JPanel{
     static public final int BUTTON_Y = 290;
     private JPanel buttonPanel;
     private final MainPage mainPage;
-    static ImageIcon localPlayImg, onlineImg, undoImg,rankingImg;
+    ImageIcon localPlayImg, onlineImg, undoImg,rankingImg;
     JButton localPlayBt, onlineBt, undoBt,rankingBt;
     KeyInput p1Key = new KeyInput("src/main/java/org/example/data/player1key.json");
     KeyInput p2Key = new KeyInput("src/main/java/org/example/data/player2key.json");
