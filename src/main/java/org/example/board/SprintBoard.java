@@ -67,7 +67,7 @@ public class SprintBoard extends Board {
         int removeNum;
         removeNum = super.removeFullLines();
         if(getNumLinesRemoved() >= clearPoint)   gameClear();
-
+        gamePage.raiseCombo(removeNum);
         return removeNum;
     }
 
@@ -82,4 +82,6 @@ public class SprintBoard extends Board {
         String str = String.format("%d/"+clearPoint, removedLines);
         boardStatus.updateRemovedLineLabel(str);
     }
+
+
 }

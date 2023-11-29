@@ -10,8 +10,6 @@ import org.example.score.TimeAttackScore;
 public class TimeAttackPanel extends GamePanel {
     private TimeAttackBoard board;
 
-
-
     public TimeAttackPanel(){
         super();
         addBoard(415, 10);
@@ -31,9 +29,15 @@ public class TimeAttackPanel extends GamePanel {
     }
 
     @Override
+    public void cleanUp() {
+        board = null;
+    }
+
+    @Override
     public void raiseGameClearFrame() {
         String score = Integer.toString(board.getNumLinesRemoved());
         new TimeAttackScore().saveScore(score);
+        cleanUp();
         setGameClearFrame("Score : " + score);
     }
 }

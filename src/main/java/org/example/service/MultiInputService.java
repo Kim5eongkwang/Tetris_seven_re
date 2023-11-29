@@ -20,16 +20,16 @@ public class MultiInputService extends AbstractInputService {
 
         if (!controller.getIsPaused()) {
 
-            if (keycode == input.getMoveLeft()) {
+            if (keycode == input.getMoveLeftToChar()) {
                 WebSocketService.getInstance().sendMessage("left");
-            } else if (keycode == input.getMoveRight()) {
+            } else if (keycode == input.getMoveRightToChar()) {
                 WebSocketService.getInstance().sendMessage("right");
                 //pieceController.moveRight();
             } else if (keycode == input.getBlockHold()) {
                 WebSocketService.getInstance().sendMessage("hold");
-            } else if (keycode == input.getRotateLeft()) {
+            } else if (keycode == input.getRotateLeftToChar()) {
                 WebSocketService.getInstance().sendMessage("rotateLeft");
-            } else if (keycode == input.getRotateRight()) {
+            } else if (keycode == input.RotateRightToChar()) {
                 WebSocketService.getInstance().sendMessage("rotateRight");
             } else if (keycode == input.getDropDown()) {
                 WebSocketService.getInstance().sendMessage("dropDown");

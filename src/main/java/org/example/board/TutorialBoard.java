@@ -34,10 +34,10 @@ public class TutorialBoard extends Board{
 
     public void setStep(){
         KeyInput keyInput = new KeyInput("src/main/java/org/example/data/player1key.json");
-        Long rotateR = keyInput.getRotateRight();
-        Long rotateL = keyInput.getRotateLeft();
-        Long moveR = keyInput.getMoveRight();
-        Long moveL = keyInput.getMoveLeft();
+        char rotateR = keyInput.RotateRightToChar();
+        char rotateL = keyInput.getRotateLeftToChar();
+        char moveR = keyInput.getMoveRightToChar();
+        char moveL = keyInput.getMoveLeftToChar();
 
         tutorialSteps[0] = String.format("<html># Step 1: 테트리스 규칙<br>- 테트리스의 목표는 아래로 떨어지는 블럭을 사용해 가로 한 줄을 완성하는 것입니다.<br>- 한 줄을 채우려고 노력하면서 버티는 게임입니다.<br>- 튜토리얼을 건너뛰려면 스킵 버튼을 눌러주세요</html>");
         tutorialSteps[1] = String.format("<html># Step 2: 블럭 이동하기<br>- 블럭을 좌우로 움직이려면 %c 키(왼쪽)와, %c 키(오른쪽)를 사용하세요.</html>",moveL, moveR);

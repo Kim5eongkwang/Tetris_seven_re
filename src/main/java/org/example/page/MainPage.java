@@ -25,9 +25,9 @@ public class MainPage extends JFrame {
     private JButton multiPlayBt, closeBt, singlePlayBt;
 
     private JPanel multiPlayPagePanel; //뒷 배경을 그린 패널, 메인 패널, 싱글 플레이 패널, 멀티플레이 패널
+    private JPanel backgroundPanel;
 
     public MainPage() throws IOException {
-
 
         setSize(new Dimension(MAINPAGE_SIZE_WIDTH, MAINPAGE_SIZE_HEIGHT));
         setLayout(null);
@@ -70,7 +70,7 @@ public class MainPage extends JFrame {
     }
 
     public void addBackground(){
-        JPanel backgroundPanel = new JPanel(){
+        backgroundPanel = new JPanel(){
             @Override
             protected void paintComponent(Graphics g){
                 super.paintComponent(g);

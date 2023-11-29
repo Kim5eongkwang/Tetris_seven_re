@@ -12,7 +12,7 @@ public class TimeAttackBoard extends Board {
 
     private int addTimeLimitConst = 5;
     private int delayreduceConst = 7;
-    transient private TimeAttackBoardStatus boardStatus;
+    private transient TimeAttackBoardStatus boardStatus;
     TimeAttackPanel gamePage;
 
 
@@ -68,6 +68,7 @@ public class TimeAttackBoard extends Board {
         if(removeNum > 0){
             plusTimeLimit(removeNum * addTimeLimitConst);
         }
+        gamePage.raiseCombo(removeNum);
         return removeNum;
     }
 

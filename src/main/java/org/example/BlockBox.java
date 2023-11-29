@@ -1,5 +1,6 @@
 package org.example;
 
+import java.io.IOException;
 import org.example.data.Tetrominoes;
 import org.example.entity.Shape;
 
@@ -33,7 +34,11 @@ public class BlockBox extends Square {
             if(box == Tetrominoes.NoShape)  break;
             int drawX = boxCount / 2 - 1 + Shape.coordsTable[box.ordinal()][i][0];
             int drawY = boxCount - 3 - Shape.coordsTable[box.ordinal()][i][1];
-            drawSquare(g, drawX * squareWidth(), boxTop + (boxCount - drawY - 1) * squareHeight(), box);
+            try {
+                drawImgSquare(g, drawX * squareWidth(), boxTop + (boxCount - drawY - 1) * squareHeight(), box);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 
