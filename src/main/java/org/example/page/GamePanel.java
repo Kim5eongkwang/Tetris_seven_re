@@ -154,7 +154,7 @@ public abstract class GamePanel extends JPanel{
     }
 
     private void addComboLetter(ComboLetter letter){
-        letter.addLabel(backgroundPanel, 230, 50);
+        letter.addLabel(backgroundPanel, 220, 5);
     }
 
     public void raiseCombo(int removedLines){

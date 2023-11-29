@@ -70,7 +70,7 @@ public class ComboLetter extends JLabel implements Runnable{
     public void addLabel(JPanel panel, int posX, int posY) {
         SwingUtilities.invokeLater(() -> {
             setVisible(true);
-            setBounds(posX, posY, 180, 500);
+            setBounds(posX, posY, 190, 500);
             panel.add(this);
         });
     }
