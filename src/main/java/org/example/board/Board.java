@@ -132,12 +132,12 @@ public abstract class Board extends Square {
 		super.paint(g);
 
 		drawBoard(g);
+		drawGhostPiece(g);
 		try {
 			drawCurPiece(g);
 		} catch (IOException e) {
 			throw new RuntimeException(e);
 		}
-		drawGhostPiece(g);
 	}
 
 	private void drawBoard(Graphics g){
@@ -320,6 +320,7 @@ public abstract class Board extends Square {
 			curPiece.initShape(Tetrominoes.NoShape);
 			repaint();
 		}
+
 		return numFullLines;
 	}
 

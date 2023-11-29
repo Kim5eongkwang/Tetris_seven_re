@@ -21,15 +21,21 @@ public class SprintPanel extends GamePanel {
         board = new SprintBoard(this);
         JPanel boardView = board.getComponent();
         boardView.setBounds(posX, posY, 450, 600);
-        frame.add(boardView);
+        getFrame().add(boardView);
         board.start();
         setAdapter(board);
+    }
+
+    @Override
+    public void cleanUp() {
+        board = null;
     }
 
     @Override
     public void raiseGameClearFrame() {
         String score = board.getCurTime();
         new SprintScore().saveScore(score);
+        cleanUp();
         setGameClearFrame("Score : " + score);
     }
 

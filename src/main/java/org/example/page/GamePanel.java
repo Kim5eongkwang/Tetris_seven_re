@@ -1,11 +1,13 @@
 package org.example.page;
 
 import java.awt.Color;
+import java.awt.FlowLayout;
 import java.awt.Font;
 import javax.swing.JLabel;
 import javax.swing.WindowConstants;
 
 
+import org.example.ComboLetter;
 import org.example.board.Board;
 import org.example.entity.KeyInput;
 import org.example.service.AdapterService;
@@ -23,15 +25,26 @@ public abstract class GamePanel extends JPanel{
     public JFrame frame;
     private int panelWidth = 1280;
     private int panelHeight = 720;
-    private KeyInput p1key = new KeyInput("src/main/java/org/example/data/player1key.json");
-    private KeyInput p2key = new KeyInput("src/main/java/org/example/data/player2key.json");
+    private transient KeyInput p1key = new KeyInput("src/main/java/org/example/data/player1key.json");
+    private transient KeyInput p2key = new KeyInput("src/main/java/org/example/data/player2key.json");
+    private JPanel backgroundPanel;
+    private JPanel comboArea;
 
     protected GamePanel(){
+        backgroundPanel = new JPanel();
+
         frame = new JFrame();
+        setComboArea();
         frame.setLayout(null);
         frame.setSize(new Dimension(panelWidth, panelHeight));
         frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         frame.setLocationRelativeTo(null);
+    }
+    private void setComboArea(){
+        comboArea = new JPanel();
+        comboArea.setBounds(0,300,500,300);
+        comboArea.setBackground(new Color(0,0,0,0));
+        getFrame().add(comboArea);
     }
     public abstract void addBoard(int posX, int posY);
     public int getPanelWidth(){
@@ -44,7 +57,7 @@ public abstract class GamePanel extends JPanel{
 
 
     public void addBackground(){
-        JPanel backgroundPanel = new JPanel(){
+        backgroundPanel = new JPanel(){
             @Override
             protected void paintComponent(Graphics g){
                 super.paintComponent(g);
@@ -54,13 +67,16 @@ public abstract class GamePanel extends JPanel{
                 g.drawImage(backgroundImage, 0 ,0, getWidth(), getHeight(), this);
             }
         };
-
+        backgroundPanel.setLayout(null);
         backgroundPanel.setBounds(0,0, panelWidth, panelHeight);
         frame.add(backgroundPanel);
     }
 
     private ImageIcon getGameBackgroundImg() {
         return new ImageIcon("source/background/gamebackground.png");
+    }
+    public JPanel getBackgroundPanel(){
+        return backgroundPanel;
     }
 
     public JFrame getFrame(){
@@ -71,6 +87,8 @@ public abstract class GamePanel extends JPanel{
         CloseFrame closeFrame = new CloseFrame(getFrame());
         closeFrame.showGameOver();
     }
+
+    public abstract void cleanUp();
 
     public abstract void raiseGameClearFrame();
     public void setGameClearFrame(String msg){
@@ -100,4 +118,60 @@ public abstract class GamePanel extends JPanel{
         adapterController.addList(new KeyInputService(this.p1key, p1Board));
         adapterController.addList(new KeyInputService(this.p2key, p2Board));
     }
+
+    private void raiseSingleCombo(){
+        ComboLetter letter = new ComboLetter(getFrame());
+        letter.setLabel("single");
+        addComboLetter(letter);
+        Thread thread = new Thread(letter);
+        thread.start();
+    }
+
+    private void raiseDoubleCombo(){
+        ComboLetter letter = new ComboLetter(getFrame());
+        letter.setLabel("double");
+        addComboLetter(letter);
+        Thread thread = new Thread(letter);
+        thread.start();
+    }
+
+    private void raiseTripleCombo(){
+        ComboLetter letter = new ComboLetter(getFrame());
+        letter.setLabel("triple");
+        addComboLetter(letter);
+        Thread thread = new Thread(letter);
+        thread.start();
+    }
+
+    private void raiseTetrisCombo(){
+        ComboLetter letter = new ComboLetter(getFrame());
+        letter.setLabel("tetris");
+        addComboLetter(letter);
+        Thread thread = new Thread(letter);
+        thread.start();
+    }
+
+    private void addComboLetter(ComboLetter letter){
+        letter.addLabel(backgroundPanel, 230, 50);
+    }
+
+    public void raiseCombo(int removedLines){
+        switch (removedLines){
+            case 1 :
+                raiseSingleCombo();
+                break;
+            case 2 :
+                raiseDoubleCombo();
+                break;
+            case 3 :
+                raiseTripleCombo();
+                break;
+            case 4 :
+                raiseTetrisCombo();
+                break;
+            default:
+                break;
+        }
+    }
+
 }

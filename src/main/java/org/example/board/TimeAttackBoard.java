@@ -68,6 +68,7 @@ public class TimeAttackBoard extends Board {
         if(removeNum > 0){
             plusTimeLimit(removeNum * addTimeLimitConst);
         }
+        gamePage.raiseCombo(removeNum);
         return removeNum;
     }
 

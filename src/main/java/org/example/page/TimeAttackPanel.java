@@ -31,9 +31,15 @@ public class TimeAttackPanel extends GamePanel {
     }
 
     @Override
+    public void cleanUp() {
+        board = null;
+    }
+
+    @Override
     public void raiseGameClearFrame() {
         String score = Integer.toString(board.getNumLinesRemoved());
         new TimeAttackScore().saveScore(score);
+        cleanUp();
         setGameClearFrame("Score : " + score);
     }
 }
