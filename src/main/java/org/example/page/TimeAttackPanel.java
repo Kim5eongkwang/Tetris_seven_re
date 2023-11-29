@@ -10,8 +10,6 @@ import org.example.score.TimeAttackScore;
 public class TimeAttackPanel extends GamePanel {
     private TimeAttackBoard board;
 
-
-
     public TimeAttackPanel(){
         super();
         addBoard(415, 10);

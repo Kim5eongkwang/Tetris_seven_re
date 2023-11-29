@@ -1,10 +1,10 @@
 package org.example.page;
 
 import java.awt.Color;
-import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import javax.swing.JLabel;
-import javax.swing.WindowConstants;
 
 
 import org.example.ComboLetter;
@@ -28,23 +28,24 @@ public abstract class GamePanel extends JPanel{
     private transient KeyInput p1key = new KeyInput("src/main/java/org/example/data/player1key.json");
     private transient KeyInput p2key = new KeyInput("src/main/java/org/example/data/player2key.json");
     private JPanel backgroundPanel;
-    private JPanel comboArea;
 
     protected GamePanel(){
         backgroundPanel = new JPanel();
 
         frame = new JFrame();
-        setComboArea();
         frame.setLayout(null);
         frame.setSize(new Dimension(panelWidth, panelHeight));
-        frame.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
+        setCloseEvent();
         frame.setLocationRelativeTo(null);
     }
-    private void setComboArea(){
-        comboArea = new JPanel();
-        comboArea.setBounds(0,300,500,300);
-        comboArea.setBackground(new Color(0,0,0,0));
-        getFrame().add(comboArea);
+    private void setCloseEvent(){
+        getFrame().addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosing(WindowEvent e) {
+                cleanUp();
+                getFrame().dispose();
+            }
+        });
     }
     public abstract void addBoard(int posX, int posY);
     public int getPanelWidth(){
@@ -85,6 +86,7 @@ public abstract class GamePanel extends JPanel{
 
     public void raiseGameOverFrame(){
         CloseFrame closeFrame = new CloseFrame(getFrame());
+        cleanUp();
         closeFrame.showGameOver();
     }
 

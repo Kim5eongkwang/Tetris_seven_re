@@ -5,16 +5,17 @@ import java.awt.Font;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingConstants;
 import javax.swing.SwingUtilities;
 
 public class ComboLetter extends JLabel implements Runnable{
-    private Font font = new Font("Microsoft YaHei",Font.BOLD,40);
     private JFrame repaintFrame;
 
     public ComboLetter(JFrame repaintFrame){
-        setHorizontalAlignment(SwingUtilities.CENTER);
+        setHorizontalAlignment(SwingConstants.CENTER);
         this.repaintFrame = repaintFrame;
         setForeground(Color.white);
+        Font font = new Font("Microsoft YaHei", Font.BOLD, 40);
         setFont(font);
     }
 
