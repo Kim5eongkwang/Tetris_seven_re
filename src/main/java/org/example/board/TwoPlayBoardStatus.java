@@ -1,7 +1,6 @@
 package org.example.board;
 
 import javax.swing.JLabel;
-import org.example.BoardStatus;
 
 public class TwoPlayBoardStatus extends BoardStatus {
     private JLabel dropSpeedLabel;

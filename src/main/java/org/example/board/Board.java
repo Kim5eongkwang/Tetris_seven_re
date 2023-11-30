@@ -147,8 +147,15 @@ public abstract class Board extends Square {
 		for (int i = 0; i < BoardHeight; ++i) {
 			for (int j = 0; j < BoardWidth; ++j) {
 				Tetrominoes shape = shapeAt(j, BoardHeight - i - 1);
-				if (shape != Tetrominoes.NoShape)
-					drawSquare(g, j * squareWidth(), boardTop + i * squareHeight(), shape);
+				if (shape != Tetrominoes.NoShape) {
+
+					try {
+						drawImgSquare(g, j * squareWidth(), boardTop + i * squareHeight(), shape);
+					} catch (IOException e) {
+						throw new RuntimeException(e);
+					}
+
+				}
 				if(shape == Tetrominoes.NoShape)
 					drawGrid(g,j * squareWidth(),boardTop + i * squareHeight());
 			}
@@ -374,11 +381,13 @@ public abstract class Board extends Square {
 		}
 		System.out.println(curPiece.getRotateIndex());
 	}
-
+/*
 	public void drawImgSquare(Graphics g, int x, int y, Tetrominoes shape) throws IOException {
 		BufferedImage bufferedImage = BlockImg.getImage(shape);
 		g.drawImage(bufferedImage, x, y, squareWidth(), squareHeight(), null);
 	}
+
+ */
 
 	public void gameOver(){
 		curPiece.initShape(Tetrominoes.NoShape);
