@@ -36,6 +36,7 @@ public class TutorialPanel extends GamePanel{
 
     @Override
     public void cleanUp() {
+        board.cleanUp();
         board = null;
     }
 
