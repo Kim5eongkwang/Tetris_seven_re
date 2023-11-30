@@ -55,6 +55,11 @@ public class TutorialBoard extends Board{
     }
 
     @Override
+    public void gameOver() {
+        System.out.println("최대 높히");
+    }
+
+    @Override
     public void clearBoard() {
         super.clearBoard();
         setTutorialBoardMap();

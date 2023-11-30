@@ -17,6 +17,9 @@ public abstract class GameTimer implements ActionListener {
     public GameTimer(Board board){
         this.board = board;
     }
+    public void cleanUp(){
+        printTimer = null;
+    }
     @Override
     public void actionPerformed(ActionEvent e){
         updateBoardTime();

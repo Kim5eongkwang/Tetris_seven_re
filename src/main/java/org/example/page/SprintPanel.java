@@ -28,6 +28,7 @@ public class SprintPanel extends GamePanel {
 
     @Override
     public void cleanUp() {
+        board.cleanUp();
         board = null;
     }
 
