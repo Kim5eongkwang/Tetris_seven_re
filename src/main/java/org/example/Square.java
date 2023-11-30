@@ -38,9 +38,4 @@ public abstract class Square extends JPanel {
         g.drawLine(x + squareWidth() - 1, y + squareHeight() - 1, x + squareWidth() - 1, y + 1);
     }
 
-    public void drawImgSquare(Graphics g, int x, int y, Tetrominoes shape) throws IOException {
-        BufferedImage bufferedImage = BlockImg.getImage(shape);
-        g.drawImage(bufferedImage, x, y, squareWidth(), squareHeight(), null);
-    }
-
 }
