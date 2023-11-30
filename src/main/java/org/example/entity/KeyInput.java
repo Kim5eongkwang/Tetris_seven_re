@@ -1,5 +1,6 @@
 package org.example.entity;
 
+import java.awt.event.KeyEvent;
 import lombok.Getter;
 import lombok.Setter;
 import org.json.simple.JSONObject;
@@ -45,6 +46,19 @@ public KeyInput(String filePath)  {
         throw new RuntimeException(ex);
     }
 }
+
+    public char RotateRightToChar(){
+        return convertKeyCodeToChar(rotateRight.intValue());
+    }
+    public char getRotateLeftToChar(){
+        return convertKeyCodeToChar(rotateLeft.intValue());
+    }
+    public char getMoveRightToChar(){
+        return convertKeyCodeToChar(moveRight.intValue());
+    }
+    public char getMoveLeftToChar(){
+        return convertKeyCodeToChar(moveLeft.intValue());
+    }
     public void playerKeySetting(String filePath,String key, long val) {
         try {
             Reader reader = new FileReader(filePath);
@@ -53,6 +67,22 @@ public KeyInput(String filePath)  {
             jsonObject.replace(key, val);
         } catch (IOException | ParseException ex) {
             throw new RuntimeException(ex);
+        }
+    }
+
+    private static char convertKeyCodeToChar(int keyCode) {
+        // 특수 키는 직접 변환, 일반 키는 getKeyChar 메서드 사용
+        switch (keyCode) {
+            case KeyEvent.VK_ENTER:
+                return '\n';
+            case KeyEvent.VK_TAB:
+                return '\t';
+            case KeyEvent.VK_SPACE:
+                return ' ';
+            case KeyEvent.VK_BACK_SPACE:
+                return '\b';
+            default:
+                return (char) keyCode;
         }
     }
 

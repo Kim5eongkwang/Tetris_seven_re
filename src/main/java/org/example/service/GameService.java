@@ -16,8 +16,9 @@ public class GameService implements ActionListener{
         timer = new javax.swing.Timer(delay, this);
     }
 
-
-
+    public void cleanUp(){
+        timer = null;
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {

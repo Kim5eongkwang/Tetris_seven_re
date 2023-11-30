@@ -66,8 +66,8 @@ public class TwoPlayPanel extends GamePanel{
         if(num < 0) return;
         player2.reduceDelay(num);
     }
-
-    private void cleanUp(){
+    @Override
+    public void cleanUp(){
         player1 = null;
         player2 = null;
     }

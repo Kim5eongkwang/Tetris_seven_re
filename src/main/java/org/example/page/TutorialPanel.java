@@ -35,7 +35,14 @@ public class TutorialPanel extends GamePanel{
     }
 
     @Override
+    public void cleanUp() {
+        board.cleanUp();
+        board = null;
+    }
+
+    @Override
     public void raiseGameClearFrame() {
+        cleanUp();
         setGameClearFrame("Lets play!");
     }
 

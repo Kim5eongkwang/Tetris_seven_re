@@ -13,12 +13,12 @@ import java.util.List;
 
 public class RankingService {
 
-    String filePath = "src/main/java/kr/ac/jbnu/se/tetris/data/ranking.json";
+    String filePath = "src/main/java/org/example/data/ranking.json";
     ObjectMapper objectMapper = new ObjectMapper();
     @Getter
     static final RankingService instance=new RankingService();
     public static final String SCORE="score";
-    public static final String TIME="time_score";
+    public static final String TIME="time";
 
     private RankingService() {
     }
@@ -53,10 +53,15 @@ public class RankingService {
         return scoreList;
     }
     //랭킹 순위 가져오기.
-    public List getHighRank(String which){
+    public List<Integer> getHighRank(String which){
         List<Integer> highRank=new ArrayList<>();
         List<Integer> allList=readRanking(which);
-        Collections.sort(allList);
+
+        if(which.equals(TIME))
+            Collections.sort(allList);
+
+        else Collections.reverse(allList);
+
         for(int i=0;i<10;i++){
             highRank.add(allList.get(i));
         }

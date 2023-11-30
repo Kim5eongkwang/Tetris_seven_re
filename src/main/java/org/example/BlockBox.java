@@ -1,5 +1,6 @@
 package org.example;
 
+import java.io.IOException;
 import org.example.data.Tetrominoes;
 import org.example.entity.Shape;
 

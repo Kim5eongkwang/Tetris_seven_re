@@ -3,12 +3,12 @@ package org.example.page;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.List;
 import java.util.Random;
-import javax.swing.ImageIcon;
-import javax.swing.JButton;
-import javax.swing.JPanel;
+import javax.swing.*;
 
 import lombok.Getter;
+import org.example.service.RankingService;
 
 /**
  * mainPage에서 싱글플레이 버튼을 눌렀을 때 나오는 패널을 관리하는 클래스
@@ -22,9 +22,9 @@ public class SinglePlayPage extends JPanel {
     private JPanel buttonPanel;
     private final MainPage mainPage;  //메인페이지(parent)
     @Getter
-    ImageIcon undoImg, sprintImg, tutorialImg, timeAttackImg;
+    ImageIcon undoImg, sprintImg, tutorialImg, timeAttackImg,rankingImg;
     @Getter
-    JButton sprintBt, tutorialBt, timeAttackBt, undoBt;
+    JButton sprintBt, tutorialBt, timeAttackBt, undoBt,rankingBtn;
     private Random rand;
 
     public SinglePlayPage(MainPage parent){
@@ -52,6 +52,7 @@ public class SinglePlayPage extends JPanel {
         buttonPanel.setBackground(new Color(0,0,0, 168));
         add(buttonPanel);
         buttonPanel.setVisible(true);
+
     }
 
     /**
@@ -65,21 +66,26 @@ public class SinglePlayPage extends JPanel {
         tutorialImg = new ImageIcon(filePath+"/tutorial.png");
         timeAttackImg = new ImageIcon(filePath+"/timeattack.png");
         undoImg = new ImageIcon(filePath+"/undo.png");
+        rankingImg = new ImageIcon(filePath+"/rankingImg.png");
 
         sprintBt = new JButton(sprintImg);  //스프린트
         tutorialBt = new JButton(tutorialImg);  //튜토리얼
         timeAttackBt = new JButton(timeAttackImg);  //타임어택
         undoBt = new JButton(undoImg);  //뒤로가기
+        rankingBtn =new JButton(rankingImg);
 
         sprintBt.setBounds(BUTTON_X, BUTTON_Y, BUTTON_WIDTH,BUTTON_HEIGHT); //버튼들의 위치를 설정한다
         timeAttackBt.setBounds(BUTTON_X, BUTTON_Y + BUTTON_HEIGHT + 30, BUTTON_WIDTH, BUTTON_HEIGHT);
         tutorialBt.setBounds(BUTTON_X, BUTTON_Y +  BUTTON_HEIGHT*2 + 60, BUTTON_WIDTH, BUTTON_HEIGHT);
         undoBt.setBounds(0, 120, BUTTON_WIDTH,BUTTON_HEIGHT);
+        rankingBtn.setBounds(BUTTON_X,BUTTON_Y +  BUTTON_HEIGHT*3+90,BUTTON_WIDTH,BUTTON_HEIGHT);
 
         add(sprintBt);  //버튼 프레임에 추가
         add(timeAttackBt);
         add(tutorialBt);
         add(undoBt);
+        add(rankingBtn);
+
         buttonAction();
     }
 
@@ -115,5 +121,31 @@ public class SinglePlayPage extends JPanel {
                 timeAttackPage.getFrame().setVisible(true);
             }
         });
+        rankingBtn.addActionListener(new ActionListener() {   //랭킹확인 버튼을 누를 때 발생하는 이벤트
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                List<Integer> timelist = RankingService.getInstance().getHighRank(RankingService.TIME);
+                List<Integer> list=RankingService.getInstance().getHighRank(RankingService.SCORE);
+                String rank="       <<ranking>>   \n";
+                for(int i=0;i<list.size();i++){
+                    rank=rank+"   "+i+"등" + "    |    "+list.get(i)+"\n";
+                    if(i==9){
+                        i=list.size();
+                    }
+                }
+                rank=rank+"     <<time ranking>>   \n";
+                for(int i=0;i<timelist.size();i++){
+                    rank=rank+"   "+i+"등" + "    |    "+timelist.get(i)+"\n";
+                    if(i==9){
+                        i=timelist.size();
+                    }
+                }
+
+                JOptionPane.showMessageDialog
+                        (null, rank);
+            }
+        });
+
+
     }
 }
