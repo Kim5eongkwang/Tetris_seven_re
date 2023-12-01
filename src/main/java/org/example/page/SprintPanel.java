@@ -5,6 +5,7 @@ import org.example.board.SprintBoard;
 import javax.swing.JPanel;
 
 import org.example.score.SprintScore;
+import org.example.service.RankingService;
 
 
 public class SprintPanel extends GamePanel {
@@ -36,6 +37,7 @@ public class SprintPanel extends GamePanel {
     public void raiseGameClearFrame() {
         String score = board.getCurTime();
         new SprintScore().saveScore(score);
+        RankingService.getInstance().saveRanking(RankingService.TIME,score);
         cleanUp();
         setGameClearFrame("Score : " + score);
     }

@@ -5,6 +5,7 @@ import org.example.board.TimeAttackBoard;
 import javax.swing.JPanel;
 
 import org.example.score.TimeAttackScore;
+import org.example.service.RankingService;
 
 
 public class TimeAttackPanel extends GamePanel {
@@ -38,6 +39,7 @@ public class TimeAttackPanel extends GamePanel {
     public void raiseGameClearFrame() {
         String score = Integer.toString(board.getNumLinesRemoved());
         new TimeAttackScore().saveScore(score);
+        RankingService.getInstance().saveRanking(RankingService.SCORE,score);
         cleanUp();
         setGameClearFrame("Score : " + score);
     }

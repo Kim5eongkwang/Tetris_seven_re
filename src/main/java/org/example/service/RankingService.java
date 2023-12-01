@@ -69,7 +69,7 @@ public class RankingService {
         return highRank;
     }
     //랭킹 저장하기
-    public void saveRanking(String which, int score){
+    public void saveRanking(String which, String score){
         try {
             // JSON 파일 열기
             File jsonFile = new File(filePath);
