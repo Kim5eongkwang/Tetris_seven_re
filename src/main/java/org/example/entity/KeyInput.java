@@ -8,6 +8,7 @@ import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
 
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.logging.Logger;
@@ -17,6 +18,8 @@ import java.util.logging.Logger;
 
 //키 입력 세팅 자체를 클래스로 만들고, 이걸 TetrisBoard클래스에 넣는 방향으로 구상변경
 public class KeyInput {
+    private static String filePath1="src/main/java/org/example/data/player1key.json";
+    private static String filePath2="src/main/java/org/example/data/player2key.json";
     Logger logger= Logger.getLogger(KeyInput.class.getName());
     //각 동작마다의 키 바인딩.
     //세팅 UI를 따로 준비하고 거기서 플레이어가 변경하도록 만들것.
@@ -59,12 +62,21 @@ public KeyInput(String filePath)  {
     public char getMoveLeftToChar(){
         return convertKeyCodeToChar(moveLeft.intValue());
     }
-    public void playerKeySetting(String filePath,String key, long val) {
+
+
+    public static void  playerKeySetting(int i,String key, long val) {
         try {
+
+            String filePath = (i == 0) ? filePath1 : filePath2;
             Reader reader = new FileReader(filePath);
+
             JSONParser parser = new JSONParser();
             JSONObject jsonObject = (JSONObject) parser.parse(reader);
             jsonObject.replace(key, val);
+            try (FileWriter writer = new FileWriter(filePath)) {
+                writer.write(jsonObject.toJSONString());
+            }
+
         } catch (IOException | ParseException ex) {
             throw new RuntimeException(ex);
         }

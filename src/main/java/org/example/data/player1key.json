@@ -1,9 +1,1 @@
-{"rotateR": 115,
-"rotateL": 119,
-  "moveR" : 100,
-  "moveL" : 97,
-  "down" : 32,
-  "blockHold": 104,
-  "pause": 112,
-  "oneLineDown" : 102
-}
+{"rotateL":119,"moveR":100,"rotateR":115,"blockHold":104,"oneLineDown":102,"down":32,"pause":112,"moveL":97}
