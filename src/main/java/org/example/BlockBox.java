@@ -7,6 +7,7 @@ import org.example.entity.Shape;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
+import java.io.IOException;
 import javax.swing.JPanel;
 
 public class BlockBox extends Square {

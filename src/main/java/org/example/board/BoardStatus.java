@@ -1,4 +1,4 @@
-package org.example;
+package org.example.board;
 
 import java.awt.*;
 import javax.swing.JLabel;

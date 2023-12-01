@@ -1,7 +1,6 @@
 package org.example.board;
 
 import javax.swing.JLabel;
-import org.example.BoardStatus;
 
 public class SprintBoardStatus extends BoardStatus {
     private JLabel timeLabel = new JLabel("00:00");
