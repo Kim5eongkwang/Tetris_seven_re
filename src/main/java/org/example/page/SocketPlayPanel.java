@@ -24,8 +24,7 @@ public class SocketPlayPanel extends TwoPlayPanel{
 
     public SocketPlayPanel(){
         super();
-        member1= new Member();
-        member2= new Member();
+
 
         addBoard(100,100);
         addBackground();
@@ -33,6 +32,8 @@ public class SocketPlayPanel extends TwoPlayPanel{
 
     @Override
     public void addBoard(int posX, int posY) {
+        member1= new Member();
+        member2= new Member();
         MyWebSocketClient client= WebSocketService.getInstance().getClient();
         roomId=client.getRoomId();
 
