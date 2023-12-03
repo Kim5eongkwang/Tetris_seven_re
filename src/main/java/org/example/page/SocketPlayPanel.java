@@ -27,6 +27,12 @@ public class SocketPlayPanel extends TwoPlayPanel{
         member1= new Member();
         member2= new Member();
 
+        addBoard(100,100);
+        addBackground();
+    }
+
+    @Override
+    public void addBoard(int posX, int posY) {
         MyWebSocketClient client= WebSocketService.getInstance().getClient();
         roomId=client.getRoomId();
 
@@ -35,13 +41,6 @@ public class SocketPlayPanel extends TwoPlayPanel{
         System.out.println("seed1: "+client.getSeed1()+ "seed2 : " +client.getSeed2());
         rand1=new Random((long) client.getSeed1());
         rand2=new Random((long) client.getSeed2());
-
-        addBoard(100,100);
-        addBackground();
-    }
-
-    @Override
-    public void addBoard(int posX, int posY) {
 
         setPlayer1Board(posX, posY);
         player1.setPlayerName("Player 1");
