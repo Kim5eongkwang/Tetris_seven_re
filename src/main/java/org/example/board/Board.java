@@ -52,6 +52,7 @@ public abstract class Board extends Square {
 		setGameTimer(new Counter(this));
 	}
 
+
 	public void cleanUp(){
 		controller.cleanUp();
 		gameTimer.cleanUp();

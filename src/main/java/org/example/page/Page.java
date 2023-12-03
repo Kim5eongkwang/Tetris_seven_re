@@ -7,7 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyEvent;
+
 
 
 //일반적인 메뉴를 포함한, 게임 페이즐 제외한 페이지
@@ -98,7 +98,7 @@ public class Page extends JFrame {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                new LoginScreen();
+                new LoginPage();
                 dispose();
 
             }

@@ -12,7 +12,7 @@ public class MultiInputService extends AbstractInputService {
         super(input,  controller);
     }
 
-    public void action(int keycode) throws CloneNotSupportedException {
+    public void action(int keycode) {
         logger.info("input : " + keycode);
 
         if(keycode == input.getPause())
