@@ -95,8 +95,8 @@ public class SocketPlayPanel extends TwoPlayPanel{
         member1.setSessionId(client.getSender1());
         member2.setSessionId(client.getSender2());
         System.out.println("seed1: "+client.getSeed1()+ "seed2 : " +client.getSeed2());
-        Random rand1=new Random((long) client.getSeed1());
-        Random rand2=new Random((long) client.getSeed2());
+         rand1=new Random((long) client.getSeed1());
+         rand2=new Random((long) client.getSeed2());
 
         MultiAdapterService adapterService= new MultiAdapterService();
         frame.setFocusable(true);
