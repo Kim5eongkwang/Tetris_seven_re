@@ -136,8 +136,9 @@ public class MutliPlayPage extends JPanel{
                     } catch (InterruptedException ex) {
                         throw new RuntimeException(ex);
                     }
+
                     TwoPlayPanel multiTwoPlayPage=new SocketPlayPanel();
-                    multiTwoPlayPage.setVisible(true);
+                    multiTwoPlayPage.getFrame().setVisible(true);
                     System.out.println("match success");
                 }
 

@@ -1,5 +1,6 @@
 package org.example.page;
 
+import org.example.RandomBlockGenerator;
 import org.example.board.Board;
 import org.example.board.TwoPlayBoard;
 import org.example.entity.Member;
@@ -16,7 +17,10 @@ public class SocketPlayPanel extends TwoPlayPanel{
     private int player2RemovedLine = 0;
     private Member member1;
     private Member member2;
+    private Random rand1;
+    private Random rand2;
     private String roomId;
+
 
     public SocketPlayPanel(){
         super();
@@ -26,14 +30,15 @@ public class SocketPlayPanel extends TwoPlayPanel{
 
     @Override
     public void addBoard(int posX, int posY) {
+        setAdapter(player1,player2);
         setPlayer1Board(posX, posY);
         player1.setPlayerName("Player 1");
         setPlayer2Board(posX+700, posY);
         player2.setPlayerName("Player 2");
-        setAdapter(player1,player2);
+
     }
     private void setPlayer1Board(int posX, int posY){
-        player1 = new TwoPlayBoard(this);
+        player1 = new TwoPlayBoard(this,rand1);
         JPanel boardView = player1.getComponent();
         boardView.setBounds(posX, posY, 450, 500);
         frame.add(boardView);
@@ -41,8 +46,7 @@ public class SocketPlayPanel extends TwoPlayPanel{
     }
 
     private void setPlayer2Board(int posX, int posY){
-        player2= new TwoPlayBoard(this);
-        player2 = new TwoPlayBoard(this);
+        player2 = new TwoPlayBoard(this,rand2);
         JPanel boardView = player2.getComponent();
         boardView.setBounds(posX, posY, 450, 500);
         frame.add(boardView);
