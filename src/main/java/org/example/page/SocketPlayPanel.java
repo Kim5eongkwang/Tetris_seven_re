@@ -85,7 +85,6 @@ public class SocketPlayPanel extends TwoPlayPanel{
         member1= new Member();
         member2= new Member();
 
-
         MyWebSocketClient client= WebSocketService.getInstance().getClient();
         roomId=client.getRoomId();
 
