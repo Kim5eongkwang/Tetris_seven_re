@@ -14,6 +14,7 @@ public class TwoPlayPanel extends GamePanel{
         addBoard(100,100);
         addBackground();
     }
+
     @Override
     public void addBoard(int posX, int posY) {
         setPlayer1Board(posX, posY);
