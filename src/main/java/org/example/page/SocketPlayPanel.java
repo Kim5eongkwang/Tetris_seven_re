@@ -24,17 +24,30 @@ public class SocketPlayPanel extends TwoPlayPanel{
 
     public SocketPlayPanel(){
         super();
+        member1= new Member();
+        member2= new Member();
+
+        MyWebSocketClient client= WebSocketService.getInstance().getClient();
+        roomId=client.getRoomId();
+
+        member1.setSessionId(client.getSender1());
+        member2.setSessionId(client.getSender2());
+        System.out.println("seed1: "+client.getSeed1()+ "seed2 : " +client.getSeed2());
+        rand1=new Random((long) client.getSeed1());
+        rand2=new Random((long) client.getSeed2());
+
         addBoard(100,100);
         addBackground();
     }
 
     @Override
     public void addBoard(int posX, int posY) {
-        setAdapter(player1,player2);
+
         setPlayer1Board(posX, posY);
         player1.setPlayerName("Player 1");
         setPlayer2Board(posX+700, posY);
         player2.setPlayerName("Player 2");
+        setAdapter(player1,player2);
 
     }
     private void setPlayer1Board(int posX, int posY){
@@ -85,18 +98,8 @@ public class SocketPlayPanel extends TwoPlayPanel{
     }
     @Override
     public void setAdapter(Board p1board,Board p2board){
-
-        member1= new Member();
-        member2= new Member();
-
         MyWebSocketClient client= WebSocketService.getInstance().getClient();
-        roomId=client.getRoomId();
 
-        member1.setSessionId(client.getSender1());
-        member2.setSessionId(client.getSender2());
-        System.out.println("seed1: "+client.getSeed1()+ "seed2 : " +client.getSeed2());
-         rand1=new Random((long) client.getSeed1());
-         rand2=new Random((long) client.getSeed2());
 
         MultiAdapterService adapterService= new MultiAdapterService();
         frame.setFocusable(true);
