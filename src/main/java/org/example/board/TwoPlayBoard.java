@@ -17,6 +17,7 @@ public class TwoPlayBoard extends Board {
 
     public TwoPlayBoard(TwoPlayPanel parent){
         super();
+        System.out.println("TwoPlay");
         setGameTimer(new Counter(this));
         boardStatus = new TwoPlayBoardStatus();
         updateSpeedLabel();

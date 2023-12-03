@@ -31,7 +31,7 @@ public abstract class GamePanel extends JPanel{
 
     protected GamePanel(){
         backgroundPanel = new JPanel();
-
+        System.out.println("gamepanel");
         frame = new JFrame();
         frame.setLayout(null);
         frame.setSize(new Dimension(panelWidth, panelHeight));

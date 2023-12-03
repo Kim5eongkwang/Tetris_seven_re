@@ -25,7 +25,7 @@ public class SocketPlayPanel extends TwoPlayPanel{
     public SocketPlayPanel(){
         super();
 
-
+        System.out.println("addBoard");
         addBoard(100,100);
         addBackground();
     }
@@ -39,7 +39,7 @@ public class SocketPlayPanel extends TwoPlayPanel{
 
         member1.setSessionId(client.getSender1());
         member2.setSessionId(client.getSender2());
-        System.out.println("seed1: "+client.getSeed1()+ "seed2 : " +client.getSeed2());
+        System.out.println("seed1: "+client.getSeed1()+ "&& seed2 : " +client.getSeed2());
         rand1=new Random((long) client.getSeed1());
         rand2=new Random((long) client.getSeed2());
 
@@ -47,7 +47,8 @@ public class SocketPlayPanel extends TwoPlayPanel{
         player1.setPlayerName("Player 1");
         setPlayer2Board(posX+700, posY);
         player2.setPlayerName("Player 2");
-        setAdapter(player1,player2);
+        System.out.println("setMultiAdapter");
+        setMultiAdapter(player1,player2);
 
     }
     private void setPlayer1Board(int posX, int posY){
@@ -96,18 +97,21 @@ public class SocketPlayPanel extends TwoPlayPanel{
         player1 = null;
         player2 = null;
     }
-    @Override
-    public void setAdapter(Board p1board,Board p2board){
+
+    public void setMultiAdapter(Board p1board,Board p2board){
         MyWebSocketClient client= WebSocketService.getInstance().getClient();
 
 
         MultiAdapterService adapterService= new MultiAdapterService();
         frame.setFocusable(true);
         frame.addKeyListener(adapterService);
+
         adapterService.addList(new MultiInputService(this.p1key,p1board));
 
         client.setController1(new MultiActionService(p1board));
         client.setController2(new MultiActionService(p2board));
+        int listenerCount = frame.getKeyListeners().length;
+        System.out.println("adapter size" + listenerCount);
     }
 
     @Override
