@@ -39,7 +39,9 @@ public class RandomBlockGenerator implements BlockGenerator{
         this.rand = rand;
         rand.nextInt();
     }
-
+    private void updateMultiSeed(int seed){
+        this.seed=seed;
+    }
     private void updateSeed(){
         this.seed = createUnsignedRandomNum();
     }

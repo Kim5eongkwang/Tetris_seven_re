@@ -25,7 +25,7 @@ public abstract class GamePanel extends JPanel{
     public JFrame frame;
     private int panelWidth = 1280;
     private int panelHeight = 720;
-    private transient KeyInput p1key = new KeyInput("src/main/java/org/example/data/player1key.json");
+    protected transient KeyInput p1key = new KeyInput("src/main/java/org/example/data/player1key.json");
     private transient KeyInput p2key = new KeyInput("src/main/java/org/example/data/player2key.json");
     private JPanel backgroundPanel;
 

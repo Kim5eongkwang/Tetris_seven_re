@@ -16,9 +16,9 @@ import java.io.IOException;
 
 import javax.swing.*;
 // 더미 페이지. 불필요함.
-public class LoginScreen extends JFrame {
+public class LoginPage extends JFrame {
 
-    public LoginScreen() {
+    public LoginPage() {
 
         setTitle("로그인 페이지");
 
