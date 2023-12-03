@@ -26,8 +26,7 @@ public class SocketPlayPanel extends TwoPlayPanel{
         super();
 
         System.out.println("addBoard");
-        addBoard(100,100);
-        addBackground();
+
     }
 
     @Override
