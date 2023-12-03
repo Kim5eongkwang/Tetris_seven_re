@@ -10,7 +10,7 @@ public class CloseFrame extends JFrame {
     private JFrame gameFrame;
     private JButton closeButton;
     private int frameWidth = 500;
-    private int frameHeight = 400;
+    private int frameHeight = 300;
 
     public CloseFrame(JFrame parent){
         closeFrame = new JFrame("close frame");
@@ -18,6 +18,7 @@ public class CloseFrame extends JFrame {
         closeFrame.setPreferredSize(new Dimension(frameWidth, frameHeight));
         closeButton = new JButton("확인");
         gameFrame = parent;
+        closeFrame.setLocationRelativeTo(null);
     }
 
     public void showGameClear(String msg){
@@ -26,7 +27,7 @@ public class CloseFrame extends JFrame {
         msgLabel.setFont(font);
 
         msgLabel.setBounds(0,0,400,25);
-        closeButton.setBounds(200,300,200,100);
+        closeButton.setBounds(200,220,100,50);
 
         closeFrame.add(msgLabel);
         closeFrame.add(closeButton);
@@ -49,7 +50,7 @@ public class CloseFrame extends JFrame {
         msgLabel.setFont(font);
 
         msgLabel.setBounds(0,0,400,100);
-        closeButton.setBounds(200,300,200,100);
+        closeButton.setBounds(200,220,100,50);
 
         closeFrame.add(msgLabel);
         closeFrame.add(closeButton);
