@@ -26,8 +26,8 @@ public class CloseFrame extends JFrame {
         Font font = new Font("Aharon", Font.BOLD, 25);
         msgLabel.setFont(font);
 
-        msgLabel.setBounds(0,0,400,25);
-        closeButton.setBounds(200,220,100,50);
+        msgLabel.setBounds(0,0,500,100);
+        closeButton.setBounds(200,200,100,50);
 
         closeFrame.add(msgLabel);
         closeFrame.add(closeButton);
@@ -45,12 +45,12 @@ public class CloseFrame extends JFrame {
     }
 
     private void setGameOver(){
-        JLabel msgLabel = new JLabel("GameOver");
+        JLabel msgLabel = new JLabel("GameOver",SwingConstants.CENTER);
         Font font = new Font("Aharon", Font.BOLD, 25);
         msgLabel.setFont(font);
 
-        msgLabel.setBounds(0,0,400,100);
-        closeButton.setBounds(200,220,100,50);
+        msgLabel.setBounds(0,0,500,100);
+        closeButton.setBounds(200,200,100,50);
 
         closeFrame.add(msgLabel);
         closeFrame.add(closeButton);
