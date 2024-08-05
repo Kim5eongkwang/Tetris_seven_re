@@ -1,4 +1,4 @@
-#팀원
+# 팀원
 [김성광](https://github.com/Kim5eongkwang), [최연호](https://github.com/GRBRacoon), [최정인](https://github.com/intoMaven)
 
 # 소스코드분석 테트리스 개선 프로젝트
